@@ -144,16 +144,16 @@ namespace tes
             try
             {
                 connection.Open();
-
+                string kode = kode_brg.ToUpper();
                 string query = "SELECT * FROM product WHERE kode_brg = @kode_brg";
                 MySqlCommand command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@kode_brg", kode_brg);
+                command.Parameters.AddWithValue("@kode_brg", kode);
 
                 bool found = false;
 
                 foreach (DataGridViewRow row in dgv.Rows)
                 {
-                    if (row.Cells["KodeBarang"].Value != null && row.Cells["KodeBarang"].Value.ToString() == kode_brg)
+                    if (row.Cells["KodeBarang"].Value != null && row.Cells["KodeBarang"].Value.ToString() == kode)
                     {
                         int rowIndex = row.Index;
                         int qty = Convert.ToInt32(dgv.Rows[rowIndex].Cells["Qty"].Value) + 1;
@@ -186,7 +186,10 @@ namespace tes
 
                             Image deleteIcon = Properties.Resources.icons8_delete_24px_1;
 
-                            dgv.Rows.Add(kodeBarang, namaBarang, hargaJual, qty, subtotal, deleteIcon);
+                            string hargaStr = hargaJual.ToString("N0");
+                            string subtotalStr = subtotal.ToString("N0");
+
+                            dgv.Rows.Add(kodeBarang, namaBarang, hargaStr, qty, subtotalStr, deleteIcon);
                             txtScan.Text = "";
                         }
                         else
@@ -240,6 +243,40 @@ namespace tes
             }
         }
 
+        private void insertToKas(string kode)
+        {
+            try
+            {
+                string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};";
+                string query = "INSERT INTO pembayaran (tgl_pembelian, tunai, tgl_pembayaran, faktur, jenis) values (@tgl, @tunai, @tgl_p, @faktur, 'hutang')";
+
+                string tgl_p = DateTime.Now.ToString("yyyy-MM-dd");
+
+                decimal tunai = decimal.Parse(txtBayar.Text);
+
+
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@tgl", tgl_p);
+                        cmd.Parameters.AddWithValue("@tgl_p", tgl_p);
+                        cmd.Parameters.AddWithValue("@tunai", tunai);
+                        cmd.Parameters.AddWithValue("@faktur", kode);
+                        cmd.ExecuteNonQuery();
+                    }
+                    connection.Close();
+                }
+                MessageBox.Show("Data Berhasil Ditambahkan!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Terjadi Kesalahan Saat Insert Data Pembayaran:", ex.Message);
+            }
+        }
+
         private void InsertDatas()
         {
 
@@ -276,8 +313,8 @@ namespace tes
                         namaSuplier = "-";
                     }
 
-                    string insertQuery = "INSERT INTO transaction_in (tgl, no_faktur, kode, nama, qty, suplier, payment, harga, subtotal) " +
-                                            "VALUES (@tgl, @no_faktur, @kode, @nama, @qty, @suplier, @payment, @harga, @subtotal)";
+                    string insertQuery = "INSERT INTO transaction_in (tgl, no_faktur, kode, nama, qty, suplier, payment, harga, subtotal, retur) " +
+                                            "VALUES (@tgl, @no_faktur, @kode, @nama, @qty, @suplier, @payment, @harga, @subtotal, 0)";
 
                     MySqlCommand command = new MySqlCommand(insertQuery, connection);
                     command.Parameters.AddWithValue("@tgl", tgl);
@@ -293,6 +330,7 @@ namespace tes
                     command.ExecuteNonQuery();
                     Console.WriteLine("a");
                 }
+                insertToKas(noFaktur);
                 ClearAll();
             }
         }
@@ -350,6 +388,18 @@ namespace tes
             else
             {
                 InsertDatas();
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true)
+            {
+                label16.Text = "Dp : Rp";
+            }
+            else
+            {
+                label16.Text = "Bayar : Rp";
             }
         }
     }

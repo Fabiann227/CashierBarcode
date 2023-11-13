@@ -12,7 +12,6 @@ using System.Globalization;
 using System.Runtime.InteropServices.ComTypes;
 using OfficeOpenXml;
 using OfficeOpenXml.Table;
-using OfficeOpenXml;
 using System.IO;
 
 namespace tes
@@ -98,7 +97,7 @@ namespace tes
         private void GetDataByDate()
         {
             string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};";
-            string query = "SELECT no_faktur, tgl, kode, nama, qty, harga, laba FROM transaction WHERE DATE(tgl) = DATE(@tgl)";
+            string query = "SELECT id, no_faktur, tgl, kode, nama, qty, harga, laba FROM transaction WHERE DATE(tgl) = DATE(@tgl) and payment = 'tunai'";
 
             DateTime tgl = STARTDATE.Value;
 
@@ -126,6 +125,7 @@ namespace tes
                                 while (reader.Read())
                                 {
                                     // Mengambil nilai dari hasil pembacaan
+                                    int id = Convert.ToInt32(reader["id"]);
                                     string noFaktur = reader["no_faktur"].ToString();
                                     DateTime tanggal = Convert.ToDateTime(reader["tgl"]);
                                     string kode = reader["kode"].ToString();
@@ -140,9 +140,10 @@ namespace tes
 
                                     string strsubtotal = subtotal.ToString("N0", new CultureInfo("ID-id"));
                                     string tanggalFormatted = tanggal.ToString("yyyy-MM-dd");
+                                    Image deleteIcon = Properties.Resources.icons8_delete_24px_1;
 
                                     // Tambahkan data ke DataGridView
-                                    dgv.Rows.Add(noFaktur, tanggalFormatted, kode, nama, strharga, qty, strsubtotal, strlaba, laba, subtotal);
+                                    dgv.Rows.Add(id, noFaktur, tanggalFormatted, kode, nama, strharga, qty, strsubtotal, strlaba, laba, subtotal, deleteIcon);
 
                                 }
                                 
@@ -152,14 +153,15 @@ namespace tes
                                 
                                 for (int i = 0; i < dgv.Rows.Count;)
                                 {
-                                    total += decimal.Parse(dgv.Rows[i].Cells[9].Value.ToString());
-                                    labas += decimal.Parse(dgv.Rows[i].Cells[8].Value.ToString());
-                                    qtys += int.Parse(dgv.Rows[i].Cells[5].Value.ToString());
+                                    total += decimal.Parse(dgv.Rows[i].Cells[10].Value.ToString());
+                                    labas += decimal.Parse(dgv.Rows[i].Cells[9].Value.ToString());
+                                    qtys += int.Parse(dgv.Rows[i].Cells[6].Value.ToString());
                                     i++;
                                 }
+                                Image emptyIcon = Properties.Resources.emptyIcon;
                                 string totalText = total.ToString("N0", new CultureInfo("id-ID"));
                                 string labaText = labas.ToString("N0", new CultureInfo("id-ID"));
-                                dgv.Rows.Add("", "", "", "TOTAL :", "", qtys, totalText, labaText);
+                                dgv.Rows.Add("", "", "", "", "TOTAL :", "", qtys, totalText, labaText, "", "", emptyIcon);
                             }
                             else
                             {
@@ -175,6 +177,61 @@ namespace tes
             }
         }
 
+        private void updateStock(int qty, string kode)
+        {
+            string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};";
+            string query = "UPDATE product set keluar = keluar - @qty where kode_brg = @kode";
+
+            MySqlConnection conn = new MySqlConnection(connectionString);
+
+            using (MySqlCommand cmd = new MySqlCommand(query, conn))
+            {
+                conn.Open();
+                try
+                {
+                    cmd.Parameters.AddWithValue("@qty", qty);
+                    cmd.Parameters.AddWithValue("@kode", kode);
+                    cmd.ExecuteNonQuery();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Terjadi kesalahan", ex.Message);
+                }
+                conn.Close();
+            }
+        }
+
+        private void DeleteDataProduk(int id)
+        {
+            string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};";
+            string query = "DELETE FROM transaction where id = @id";
+            MySqlConnection conn = new MySqlConnection(connectionString);
+            using (MySqlCommand cmd = new MySqlCommand(query, conn))
+            {
+                try
+                {
+                    conn.Open();
+                    cmd.Parameters.AddWithValue("@id", id);
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected > 0)
+                    {
+                        dgv.Rows.RemoveAt(dgv.SelectedRows[0].Index);
+                        MessageBox.Show("Data berhasil dihapus dan stok sudah di Pulihkan", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        GetDataByDate();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Data tidak ditemukan atau gagal dihapus");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Terjadi Kesalahan ketika menghapus data!", ex.Message);
+                }
+            }
+
+        }
 
         private void frmReport_Load(object sender, EventArgs e)
         {
@@ -183,7 +240,17 @@ namespace tes
 
         private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            if (MessageBox.Show("Apakah Anda Yakin Ingin Menghapus?", "Hapus", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                if (e.ColumnIndex == dgv.Columns["DeleteIcon"].Index && e.RowIndex >= 0)
+                {
+                    int IDToDelete = Convert.ToInt32(dgv.Rows[e.RowIndex].Cells["ID"].Value);
+                    int retur = Convert.ToInt32(dgv.Rows[e.RowIndex].Cells["Column5"].Value);
+                    string kodeBarang = dgv.Rows[e.RowIndex].Cells["Column3"].Value.ToString();
+                    updateStock(retur, kodeBarang);
+                    DeleteDataProduk(IDToDelete);
+                }
+            }
         }
 
         private void STARTDATE_ValueChanged(object sender, EventArgs e)

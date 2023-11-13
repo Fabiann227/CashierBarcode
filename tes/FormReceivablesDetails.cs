@@ -9,19 +9,24 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Globalization;
+using System.Runtime.InteropServices.ComTypes;
+using MySqlX.XDevAPI.Relational;
 
 namespace tes
 {
     public partial class FormReceivablesDetails : Form
     {
-        public string NoFaktur { get; set; }
         string server = "localhost";
         string database = "cashier";
         string uid = "root";
         string password = "";
-        decimal ifelsehutang = 0;
-        private string SelectedID = "";
-        private string SelectedKode;
+        public string SelectedKode = "";
+        public string tgl = "";
+        decimal TotalHutang = 0;
+        string Status = "";
+        private string SelectedKodeBarang;
+        private string SelectedID;
+
         public FormReceivablesDetails()
         {
             InitializeComponent();
@@ -29,425 +34,292 @@ namespace tes
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-
+            panel2.Visible = true;
         }
 
-        private void HapusDataBarangKeluar(int kodeBarangToDelete)
-        {
-            try
-            {
-                string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};";
-                MySqlConnection connection = new MySqlConnection(connectionString);
-                connection.Open();
-
-                string deleteQuery = "DELETE FROM tb_transaksi WHERE id = @kodeBarangToDelete";
-
-                MySqlCommand deleteCmd = new MySqlCommand(deleteQuery, connection);
-                deleteCmd.Parameters.AddWithValue("@kodeBarangToDelete", kodeBarangToDelete);
-
-                int rowsAffected = deleteCmd.ExecuteNonQuery();
-
-                if (rowsAffected > 0)
-                {
-                    dgv.Rows.RemoveAt(dgv.SelectedRows[0].Index);
-                    MessageBox.Show("Data berhasil dihapus dan stok sudah di Pulihkan, Tidak Perlu tekan tombol Save! Langsung Close saja", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Data tidak ditemukan atau gagal dihapus");
-                }
-                this.Close();
-                connection.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Terjadi kesalahan 5: " + ex.Message);
-            }
-        }
-        private void updateData()
+        private void getDataPembayaran()
         {
             string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};";
-
-            string harga = this.HARGA.Text;
-            harga = harga.Replace(".", "");
-
-            string subTotal = this.SUBTOTAL.Text;
-            subTotal = subTotal.Replace(".", "");
-
-            string subRetur = this.SUBRETUR.Text;
-            subRetur = subRetur.Replace(".", "");
-
-            string query = "UPDATE `tb_transaksi` SET " +
-                    "`harga` = '" + harga + "', " +
-                    "`subtotal` = '" + subTotal + "', " + 
-                    "`QTY` = `qtyawal` - '" + this.DIRETUR.Text + "', " +
-                    "" + "`retur` = '" + this.DIRETUR.Text + "', " +
-                    "`subretur` = `subretur` + '" + subRetur + "' " +
-                    "WHERE `id` = '" + SelectedID + "'";
-
-            if (DIRETUR.Value != DIRETUR.Maximum)
-            {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
+            string query = "SELECT tgl_pembayaran, tunai FROM pembayaran WHERE faktur = @faktur and tgl_pembelian = @tgl and jenis = 'piutang'";
+            using(MySqlConnection conn = new MySqlConnection(connectionString)) { 
+                conn.Open(); 
+                using(MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
-                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
-                    {
-                        try
-                        {
-                            connection.Open();
-                            cmd.ExecuteNonQuery();
-                            MessageBox.Show("Berhasil Retur barang dengan Kode : " + SelectedID);
-                            connection.Close();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("" + ex.Message);
-                        }
-                    }
-                }
-                RefreshCart();
-            }
-            else
-            {
-                HapusDataBarangKeluar(Convert.ToInt32(SelectedID));
-            }
-        }
-
-        public void TambahStok(string kodeBarang, int jumlahDikurangkan)
-        {
-            string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};";
-            string query = "UPDATE tb_stok SET sisaPcs = sisaPcs + @jumlahDikurangkan WHERE kode_brg = @kodeBarang";
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                using (MySqlCommand cmd = new MySqlCommand(query, connection))
-                {
-                    cmd.Parameters.AddWithValue("@kodeBarang", kodeBarang);
-                    cmd.Parameters.AddWithValue("@jumlahDikurangkan", jumlahDikurangkan);
-
+                    cmd.Parameters.AddWithValue("@faktur", SelectedKode);
+                    cmd.Parameters.AddWithValue("@tgl", tgl);
                     try
                     {
-                        connection.Open();
-                        cmd.ExecuteNonQuery();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Terjadi kesalahan 1.3: " + ex.Message);
-                    }
-                }
-            }
-        }
 
-        public int GetStokSatuan(string kodeBarang)
-        {
-            int jumlahBarangAwal = 0;
-
-            string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};";
-            string query = "SELECT sisaPcs FROM tb_stok WHERE kode_brg = @kodeBarang";
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                using (MySqlCommand cmd = new MySqlCommand(query, connection))
-                {
-                    cmd.Parameters.AddWithValue("@kodeBarang", kodeBarang);
-
-                    try
-                    {
-                        connection.Open();
-                        object result = cmd.ExecuteScalar();
-                        if (result != null)
-                            jumlahBarangAwal = Convert.ToInt32(result);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Terjadi kesalahan 1.1: " + ex.Message);
-                    }
-                }
-            }
-
-            return jumlahBarangAwal;
-        }
-
-        private void UpdateStok(string kodeBarang)
-        {
-            int sisaBox = GetStokSatuan(kodeBarang);
-
-            int retur = int.Parse(DIRETUR.Text);
-
-            TambahStok(kodeBarang, retur);
-        }
-
-        private void getPembayaran()
-        {
-
-            string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};";
-            string query = "select DATE(tgl) AS tgl, harga from tb_riwayat where no_faktur = @faktur";
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                using (MySqlCommand cmd = new MySqlCommand(query, connection))
-                {
-                    try
-                    {
-                        connection.Open();
-                        cmd.Parameters.AddWithValue("@faktur", NoFaktur);
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.HasRows)
                             {
-                                dgv.Rows.Clear();
-
+                                dgvPembayaran.Rows.Clear();
                                 while (reader.Read())
                                 {
-                                    string tgl = reader.GetDateTime(0).ToString("yyyy-MM-dd");
-                                    decimal pembayaran = reader.GetDecimal(1);
-                                    string harga = pembayaran.ToString("N0", new CultureInfo("id-ID"));
-                                    dgv.Rows.Add(tgl, harga);
+                                    DateTime tgl = Convert.ToDateTime(reader["tgl_pembayaran"]);
+                                    string strTgl = tgl.ToString("yyyy-MM-dd");
+                                    decimal tunai = decimal.Parse(reader["tunai"].ToString());
+                                    string strTunai = tunai.ToString("N0");
+
+                                    dgvPembayaran.Rows.Add(strTgl, strTunai);
                                 }
+
+                                decimal total = 0;
+
+                                for (int i = 0; i < dgvPembayaran.Rows.Count; i++)
+                                {
+                                    total += decimal.Parse(dgvPembayaran.Rows[i].Cells[1].Value.ToString().Replace(".", ""), CultureInfo.InvariantCulture);
+                                }
+                                TotalHutang = TotalHutang - total;
+                                string totalText = total.ToString("N0", new CultureInfo("id-ID"));
+
+                                string StrTotalHutang = TotalHutang.ToString("N0");
+
+                                lbl_Sisa_Hutang.Text = StrTotalHutang;
+                                dgvPembayaran.Rows.Add("TOTAL :", totalText);
+                            }
+                            else
+                            {
+                                Console.WriteLine("A");
                             }
                         }
                     }
-                    catch (Exception ex)
+                    catch(Exception ex)
                     {
-                        MessageBox.Show("Terjadi kesalahan 1: " + ex.Message);
+                        MessageBox.Show("Terjadi Kesalahan : 2 " + ex.Message);
                     }
                 }
+                conn.Close();
+            }
+        }
+        private void updateStatus()
+        {
+            string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};";
+            string query = "update transaction_in set payment = 'tunai', Status = 'Lunas' WHERE no_faktur = @faktur and DATE(tgl) = @tgl";
+            MySqlConnection conn = new MySqlConnection(connectionString);
+
+            using(MySqlCommand cmd = new MySqlCommand(query, conn))
+            {
+                conn.Open();
+                cmd.Parameters.AddWithValue("@faktur", SelectedKode);
+                cmd.Parameters.AddWithValue("@tgl", tgl);
+                cmd.ExecuteNonQuery();
+                conn.Close();
             }
         }
 
-        private void updateStatus()
+        private void bannerStatus()
         {
-            try
+            decimal hutang = decimal.Parse(lbl_Sisa_Hutang.Text.Replace(".",""));
+            if (hutang > 0)
             {
-                string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};";
-                string query = "update tb_transaksi set status = @status WHERE no_faktur = @faktur";
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                guna2CustomGradientPanel1.FillColor = Color.Orange;
+                guna2CustomGradientPanel1.FillColor2 = Color.Orange;
+                guna2CustomGradientPanel1.FillColor3 = Color.Orange;
+                guna2CustomGradientPanel1.FillColor4 = Color.Orange;
+                pictureBox2.Image = Properties.Resources.icons8_cancel_2_filled_48px;
+                label6.Text = "Tidak Lunas";
+            }
+            else
+            {
+                guna2CustomGradientPanel1.FillColor = System.Drawing.SystemColors.Highlight;
+                guna2CustomGradientPanel1.FillColor2 = System.Drawing.SystemColors.Highlight;
+                guna2CustomGradientPanel1.FillColor3 = System.Drawing.SystemColors.Highlight;
+                guna2CustomGradientPanel1.FillColor4 = System.Drawing.SystemColors.Highlight;
+                pictureBox2.Image = Properties.Resources.icons8_ok_48px;
+                label6.Text = "Lunas";
+                updateStatus();
+            }
+        }
+
+        private void updateStock(int qty, string kode)
+        {
+            string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};";
+            string query = "UPDATE product set keluar = keluar - @qty where kode_brg = @kode";
+
+            MySqlConnection conn = new MySqlConnection(connectionString);
+
+            using(MySqlCommand cmd = new MySqlCommand(query, conn))
+            {
+                conn.Open();
+                try
                 {
-                    string status;
-                    if (ifelsehutang <= 0)
+                    cmd.Parameters.AddWithValue("@qty", qty);
+                    cmd.Parameters.AddWithValue("@kode", kode);
+                    cmd.ExecuteNonQuery();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Terjadi kesalahan", ex.Message);   
+                }
+                conn.Close();
+            }
+        }
+
+        private void updateRetur(int qty, string id)
+        {
+            string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};";
+            string query = "UPDATE transaction set retur = retur +  @qty where id = @id";
+            int idc = int.Parse(id);
+            if (DIRETUR.Value != DIRETUR.Maximum)
+            {
+                MySqlConnection conn = new MySqlConnection(connectionString);
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+
+                    conn.Open();
+                    try
                     {
-                        status = "Lunas";
+                        cmd.Parameters.AddWithValue("@qty", qty);
+                        cmd.Parameters.AddWithValue("@id", idc);
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Barang Berhasil Diretur!");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Terjadi kesalahan", ex.Message);
+                    }
+                    conn.Close();
+                }
+            }
+            else
+            {
+                DeleteDataProduk(idc);
+            }
+        }
+
+        private void DeleteDataProduk(int id)
+        {
+            string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};";
+            string query = "DELETE FROM transaction where id = @id";
+            MySqlConnection conn = new MySqlConnection(connectionString);
+            using(MySqlCommand cmd = new MySqlCommand(query, conn))
+            {
+                try
+                {
+                    conn.Open();
+                    cmd.Parameters.AddWithValue("@id", id);
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected > 0)
+                    {
+                        dgv.Rows.RemoveAt(dgv.SelectedRows[0].Index);
+                        MessageBox.Show("Data berhasil dihapus dan stok sudah di Pulihkan, Tidak Perlu tekan tombol Save! Langsung Close saja", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        RefreshCart();
                     }
                     else
                     {
-                        status = "Tidak Lunas";
-                    }
-                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
-                    {
-
-                        cmd.Parameters.AddWithValue("@faktur", NoFaktur);
-                        cmd.Parameters.AddWithValue("@status", status);
-
-                        connection.Open();
-                        cmd.ExecuteNonQuery();
-                        connection.Close();
+                        MessageBox.Show("Data tidak ditemukan atau gagal dihapus");
                     }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Terjadi Kesalahan ketika menghapus data!", ex.Message);
+                }
             }
-            catch(Exception ex)
-            {
-                MessageBox.Show("terjadi kesalahan 2 : " + ex.Message);
-            }
+            
         }
 
         private void RefreshCart()
         {
             string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};";
-            string query = "SELECT kode_barang, nama_barang, nama_pelanggan, alamat, harga, subtotal, qty, id, status, total_harga, retur, qtyawal FROM tb_transaksi WHERE no_faktur = @noFaktur";
+            string query = "SELECT id, no_faktur, tgl, kode, nama, qty, harga, laba, namaPelanggan, status, retur FROM transaction WHERE no_faktur = @faktur and DATE(tgl) = @tgl";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
+
                 using (MySqlCommand cmd = new MySqlCommand(query, connection))
                 {
+                    // Mengatur parameter tanggal
+                    cmd.Parameters.AddWithValue("@faktur", SelectedKode);
+                    cmd.Parameters.AddWithValue("@tgl", tgl);
                     try
                     {
                         connection.Open();
-                        cmd.Parameters.AddWithValue("@noFaktur", NoFaktur);
-
-                        decimal totalHarga = 0;
-                        int totalBarang = 0;
-                        updateHutang();
-                        updateStatus();
-
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
+                            // Mengecek apakah ada data yang bisa dibaca
+                            dgv.Rows.Clear();
                             if (reader.HasRows)
                             {
-                                guna2DataGridView1.Rows.Clear();
+                                // Bersihkan DataGridView jika sudah ada data sebelumnya
 
+                                // Loop melalui hasil pembacaan
                                 while (reader.Read())
                                 {
-                                    string namaBarang = reader.GetString(1);
-                                    string status = reader.GetString(8);
-                                    string levelHarga = reader.GetString(2);
-                                    decimal subtotal = reader.IsDBNull(5) ? 0 : reader.GetDecimal(5);
-                                    int id = reader.IsDBNull(7) ? 0 : (int)reader.GetInt32(7); // Perhatikan konversi ke int
-                                    int retur = reader.IsDBNull(10) ? 0 : (int)reader.GetInt32(10); // Perhatikan konversi ke int
-                                    int qtyawal = reader.IsDBNull(11) ? 0 : (int)reader.GetInt32(11); // Perhatikan konversi ke int
-                                    decimal harga = reader.GetDecimal(4);
-                                    int qty = reader.IsDBNull(6) ? 0 : (int)reader.GetInt32(6); // Perhatikan konversi ke int
-                                    string nama = reader.GetString(2);
-                                    string alamat = reader.GetString(3);
-                                    int kode_barang = (int)reader.GetInt32(0); // Konversi ke int
-                                    decimal total = reader.IsDBNull(9) ? 0 : reader.GetDecimal(9);
-                                    lbl_NAMA.Text = nama;
-                                    lbl_NOFAKTUR.Text = NoFaktur;
-                                    lbl_ALAMAT.Text = alamat;
+                                    // Mengambil nilai dari hasil pembacaan
+                                    int id = Convert.ToInt32(reader["id"]);
+                                    string noFaktur = reader["no_faktur"].ToString();
+                                    DateTime tanggal = Convert.ToDateTime(reader["tgl"]);
+                                    string kode = reader["kode"].ToString();
+                                    string nama = reader["nama"].ToString();
+                                    string namaPelanggan = reader["namaPelanggan"].ToString();
+                                    int qty = Convert.ToInt32(reader["qty"]);
+                                    int retur = Convert.ToInt32(reader["retur"]);
+                                    decimal harga = Convert.ToDecimal(reader["harga"]);
+                                    string strharga = harga.ToString("N0", new CultureInfo("ID-id"));
+                                    decimal laba = Convert.ToDecimal(reader["laba"]);
+                                    string strlaba = laba.ToString("N0", new CultureInfo("ID-id"));
+                                    lbl_NOFAKTUR.Text = noFaktur;
+                                    lbl_NAMA.Text = namaPelanggan;
+                                    decimal subtotal = qty * harga;
+                                    string strsubtotal = subtotal.ToString("N0", new CultureInfo("ID-id"));
+                                    string tanggalFormatted = tanggal.ToString("yyyy-MM-dd");
+                                    Image deleteIcon = Properties.Resources.icons8_delete_24px_1;
 
-                                    string hargaBrg = harga.ToString("N0", new CultureInfo("id-ID"));
-                                    string subTotal = subtotal.ToString("N0", new CultureInfo("id-ID"));
+                                    // Tambahkan data ke DataGridView
+                                    dgv.Rows.Add( id, kode, nama, strharga, qty, retur, strsubtotal, strlaba, laba, subtotal, deleteIcon);
 
-                                    Image editIcon = Properties.Resources.icons8_delete_24px_1;
-
-                                    if (status == "Lunas")
-                                    {
-                                        label6.Text = "LUNAS";
-                                        guna2CustomGradientPanel1.FillColor = Color.FromArgb(66, 135, 245);
-                                        guna2CustomGradientPanel1.FillColor2 = Color.FromArgb(66, 135, 245);
-                                        guna2CustomGradientPanel1.FillColor3 = Color.FromArgb(66, 135, 245);
-                                        guna2CustomGradientPanel1.FillColor4 = Color.FromArgb(66, 135, 245);
-                                        pictureBox2.Image = Properties.Resources.icons8_ok_48px;
-                                    }
-                                    else
-                                    {
-                                        label6.Text = "TIDAK LUNAS";
-                                        guna2CustomGradientPanel1.FillColor = Color.FromArgb(247, 137, 52);
-                                        guna2CustomGradientPanel1.FillColor2 = Color.FromArgb(247, 137, 52);
-                                        guna2CustomGradientPanel1.FillColor3 = Color.FromArgb(247, 137, 52);
-                                        guna2CustomGradientPanel1.FillColor4 = Color.FromArgb(247, 137, 52);
-                                        pictureBox2.Image = Properties.Resources.icons8_cancel_2_filled_48px;
-                                    }
-                                    guna2DataGridView1.Rows.Add(id, kode_barang, namaBarang, qty, retur, hargaBrg, subTotal, editIcon, qtyawal);
-
-                                    totalHarga += subtotal;
-                                    totalBarang += qty;
                                 }
+                                decimal total = 0;
+                                decimal labas = 0;
+                                int qtys = 0;
+                                int returs = 0;
+                                for (int i = 0; i < dgv.Rows.Count;)
+                                {
+                                    total += decimal.Parse(dgv.Rows[i].Cells[9].Value.ToString());
+                                    labas += decimal.Parse(dgv.Rows[i].Cells[8].Value.ToString());
+                                    qtys += int.Parse(dgv.Rows[i].Cells[4].Value.ToString());
+                                    returs += int.Parse(dgv.Rows[i].Cells[5].Value.ToString());
+                                    i++;
+                                }
+                                Status = reader["status"].ToString();
+                                string totalText = total.ToString("N0", new CultureInfo("id-ID"));
+                                string labaText = labas.ToString("N0", new CultureInfo("id-ID"));
+                                Image emptyIcon = Properties.Resources.emptyIcon;
 
-                                lbl_TOTAL.Text = totalHarga.ToString("C", new CultureInfo("id-ID"));
+                                TotalHutang = total;
+
+                                dgv.Rows.Add( "", "", "TOTAL :", "", qtys, returs, totalText, labaText,"", "", emptyIcon);
+                                lbl_Sisa_Hutang.Text = totalText;
+                                getDataPembayaran();
+                            }
+                            else
+                            {
+                                Console.WriteLine("A");
                             }
                         }
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Terjadi kesalahan oiioii 2: " + ex.Message);
+                        MessageBox.Show("Terjadi kesalahan: " + ex.Message);
                     }
                 }
             }
         }
 
-        private void addBayar()
-        {
-            if (string.IsNullOrEmpty(inputBayar.Text))
-            {
-                MessageBox.Show("Harap isi Columnya di isi!");
-            }
-            else
-            {
-                try
-                {
-                    string bayar = inputBayar.Text;
-                    DateTime tanggal = DateTime.Now;
-                    string tanggals = tanggal.ToString("yyyy-MM-dd");
-
-                    string kueri = "INSERT INTO tb_riwayat (tgl, no_faktur, harga) VALUES (@tgl, @nofaktur, @harga)";
-                    string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};AllowUserVariables=true;";
-
-                    MySqlConnection connection = new MySqlConnection(connectionString);
-
-                    using (MySqlCommand cmd = new MySqlCommand(kueri, connection))
-                    {
-                        cmd.Parameters.AddWithValue("@tgl", tanggals);
-                        cmd.Parameters.AddWithValue("@nofaktur", NoFaktur);
-                        cmd.Parameters.AddWithValue("@harga", bayar);
-
-                        connection.Open();
-                        cmd.ExecuteNonQuery();
-                        connection.Close();
-                    }
-                    getPembayaran();
-                    MessageBox.Show("berhasil ditambahkan");
-                    inputBayar.Text = "";
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Terjadi kesalahan saat menambahkan data: " + ex.Message);
-                }
-            }
-        }
 
         private void guna2Button2_Click(object sender, EventArgs e)
         {
             panel2.Visible = true;
         }
 
-        private void updateHutang()
-        {
-            try
-            {
-                string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};AllowUserVariables=true;";
-                string query = "SELECT sum(harga) from tb_riwayat where no_faktur = @faktur";
-                string kueri = "SELECT total_harga from tb_transaksi where no_faktur = @faktur";
-                decimal hasilAkhir = 0;
-                decimal hutangAwal = 0;
-                decimal total;
-                decimal jumlah = 0;
-                MySqlConnection connection = new MySqlConnection(connectionString);
-                connection.Open();
-
-                using (MySqlCommand cmd = new MySqlCommand(query, connection))
-                {
-                    cmd.Parameters.AddWithValue("@faktur", NoFaktur);
-                    object result = cmd.ExecuteScalar();
-                    if (result != DBNull.Value && result != null)
-                    {
-                        total = Convert.ToDecimal(result);
-                    }
-                    else
-                    {
-                        // Tentukan nilai default jika hasilnya null
-                        total = 0; // Atau nilai default lain sesuai kebutuhan Anda
-                    }
-
-                }
-                
-                using (MySqlCommand cmd = new MySqlCommand(kueri, connection))
-                {
-                    cmd.Parameters.AddWithValue("@faktur", NoFaktur);
-                    object test = cmd.ExecuteScalar();
-
-                    if (test != null && test != DBNull.Value)
-                    {
-                        if(decimal.TryParse(test.ToString(), out jumlah))
-                        {
-                            hutangAwal = jumlah;
-                        }
-                        else
-                        {
-                            hutangAwal = 0;
-                        }
-                    }
-                }
-                connection.Close();
-
-                hasilAkhir = hutangAwal - total;
-
-                ifelsehutang = hasilAkhir;
-
-                string ahasilAkhir = hasilAkhir.ToString("C", new CultureInfo("id-ID"));
-                lbl_Sisa_Hutang.Text = ahasilAkhir;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            
-        }
-
-
         private void FormReceivablesDetails_Load(object sender, EventArgs e)
         {
-            //MessageBox.Show(NoFaktur);
-            //NoFaktur = "1000";
-            getPembayaran();
             RefreshCart();
+            lbl_Tanggal.Text = tgl;
+            bannerStatus();
         }
 
         private void guna2Button3_Click(object sender, EventArgs e)
@@ -455,99 +327,113 @@ namespace tes
             panel2.Visible = false;
         }
 
+        private void addPembayaran()
+        {
+            try
+            {
+                string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};";
+                string query = "INSERT INTO pembayaran (tgl_pembelian, tunai, tgl_pembayaran, faktur, jenis) values (@tgl, @tunai, @tgl_p, @faktur, 'piutang')";
+
+                string tgl_p = DateTime.Now.ToString("yyyy-MM-dd");
+
+                decimal tunai = decimal.Parse(inputBayar.Text);
+
+
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString)) { 
+                    connection.Open(); 
+                    using(MySqlCommand cmd = new MySqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@tgl", tgl);
+                        cmd.Parameters.AddWithValue("@tgl_p", tgl_p);
+                        cmd.Parameters.AddWithValue("@tunai", tunai);
+                        cmd.Parameters.AddWithValue("@faktur", SelectedKode);
+                        cmd.ExecuteNonQuery();
+                    }
+                    connection.Close();
+                }
+                MessageBox.Show("Data Berhasil Ditambahkan!");
+                inputBayar.Text = "";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show ("Terjadi Kesalahan Saat Insert Data Pembayaran:", ex.Message);
+            }
+        }
         private void guna2Button4_Click(object sender, EventArgs e)
         {
-            addBayar();
+            addPembayaran();
             RefreshCart();
+            bannerStatus();
         }
-
-        private void DIRETUR_ValueChanged(object sender, EventArgs e)
-        {
-            string hargaText = HARGA.Text;
-
-            int jumlahBarangRetur = Convert.ToInt32(DIRETUR.Value);
-
-            int sumValue = Convert.ToInt32(sum.Value);
-
-            int direturValue = Convert.ToInt32(DIRETUR.Value);
-
-            decimal totalHargaRetur = 0;
-
-            decimal result = sumValue - direturValue;
-
-            decimal totalHarga = 0;
-
-            int jumlahBarang = Convert.ToInt32(result);
-
-            if (decimal.TryParse(hargaText, out decimal harga))
-            {
-                totalHargaRetur = harga * jumlahBarangRetur;
-            }
-
-            if (decimal.TryParse(hargaText, out decimal hargaa))
-            {
-                totalHarga = hargaa * jumlahBarang;
-            }
-
-            SUBRETUR.Text = totalHargaRetur.ToString();
-
-            SUBTOTAL.Text = totalHarga.ToString();
-        }
-
-        
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            UpdateStok(SelectedKode);
-            updateData();
-        }
-        private void guna2DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                DataGridViewRow row = this.guna2DataGridView1.Rows[e.RowIndex];
-                SelectedID = row.Cells["ColumnID"].Value.ToString();
-                SelectedKode = row.Cells["column1"].Value.ToString();
-                NAMABARANG.Text = row.Cells["column2"].Value.ToString();
-                HARGA.Text = row.Cells["column4"].Value.ToString();
-                DIBELI.Text = row.Cells["column3"].Value.ToString();
-                SUBTOTAL.Text = row.Cells["column5"].Value.ToString();
-                decimal diRetur = Convert.ToDecimal(row.Cells["column7"].Value);
-                DIRETUR.Value = diRetur;
-                sum.Text = row.Cells["dataGridViewTextBoxColumn1"].Value.ToString();
-                DIRETUR.Maximum = sum.Value;
-                DIRETUR.Enabled = true;
-                btnSave.Enabled = true;
-                btnCancel.Enabled = true;
-                guna2CustomGradientPanel2.Visible = true;
-                //MessageBox.Show()
-            }
+            string kode = KodeBarang.Text;
+            int retur = Convert.ToInt32(DIRETUR.Text);
+            updateStock(retur, kode);
+            updateRetur(retur, SelectedID);
+            RefreshCart();
+            clearPanel();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            guna2CustomGradientPanel2.Visible = false;
+            panel2.Visible = false;
         }
 
-        private void UpdateStokDeleted(string kodeBarang, int retur)
+
+        private void clearPanel()
         {
-            int sisaBox = GetStokSatuan(kodeBarang);
-
-            //Console.WriteLine("Var: " + kodeBarang + " | " + retur + " | " + lempengPerBox);
-
-            TambahStok(kodeBarang, retur);
+            SelectedKodeBarang = "";
+            KodeBarang.Text = "";
+            NAMABARANG.Text = "";
+            HARGA.Text = "";
+            DIBELI.Value = 0;
+            SUBTOTAL.Text = "";
+            DIRETUR.Value = 0;
         }
 
-        private void guna2DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == guna2DataGridView1.Columns["Column6"].Index && e.RowIndex >= 0)
+            if (e.RowIndex >= 0)
             {
-                int kodeBarangToDelete = Convert.ToInt32(guna2DataGridView1.Rows[e.RowIndex].Cells["ColumnID"].Value);
-                int retur = Convert.ToInt32(guna2DataGridView1.Rows[e.RowIndex].Cells["Column7"].Value);
-                string kodeBarang = guna2DataGridView1.Rows[e.RowIndex].Cells["Column1"].Value.ToString();
-                HapusDataBarangKeluar(kodeBarangToDelete);
-                UpdateStokDeleted(kodeBarang, retur);
+                DataGridViewRow row = this.dgv.Rows[e.RowIndex];
+                SelectedID = row.Cells["ID"].Value.ToString();
+                SelectedKodeBarang = row.Cells["Column1"].Value.ToString();
+                KodeBarang.Text = row.Cells["Column1"].Value.ToString();
+                NAMABARANG.Text = row.Cells["Column2"].Value.ToString();
+                HARGA.Text = row.Cells["Column3"].Value.ToString();
+                DIBELI.Text = row.Cells["Column4"].Value.ToString();
+                SUBTOTAL.Text = row.Cells["Column5"].Value.ToString();
+                //decimal diRetur = Convert.ToDecimal(row.Cells["Column7"].Value);
+                DIRETUR.Value = 0;
+                DIRETUR.Maximum = DIBELI.Value;
+                DIRETUR.Enabled = true;
+                btnSave.Enabled = true;
+                btnCancel.Enabled = true;
             }
+        }
+
+        private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dgv.Columns["DeleteIcon"].Index && e.RowIndex >= 0)
+            {
+                int IDToDelete = Convert.ToInt32(dgv.Rows[e.RowIndex].Cells["ID"].Value);
+                int retur = Convert.ToInt32(dgv.Rows[e.RowIndex].Cells["Column4"].Value);
+                string kodeBarang = dgv.Rows[e.RowIndex].Cells["Column1"].Value.ToString();
+                updateStock(retur, kodeBarang);
+                DeleteDataProduk(IDToDelete);
+            }
+        }
+
+        private void btnBayar_Click(object sender, EventArgs e)
+        {
+
+            FormCetakFaktur frmCetak = new FormCetakFaktur();
+            frmCetak.no_faktur = SelectedKode;
+            frmCetak.tgl = tgl;
+            frmCetak.ShowDialog();
         }
     }
 }

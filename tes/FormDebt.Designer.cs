@@ -34,73 +34,31 @@ namespace tes
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dgv = new Guna.UI2.WinForms.Guna2DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.guna2Shapes1 = new Guna.UI2.WinForms.Guna2Shapes();
             this.STARTDATE = new Guna.UI2.WinForms.Guna2DateTimePicker();
-            this.dgv = new Guna.UI2.WinForms.Guna2DataGridView();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Icon = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.Controls.Add(this.dgv);
-            this.panel1.Location = new System.Drawing.Point(35, 144);
+            this.panel1.Location = new System.Drawing.Point(47, 177);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1088, 578);
+            this.panel1.Size = new System.Drawing.Size(1451, 669);
             this.panel1.TabIndex = 6;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Swis721 BlkCn BT", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(30, 48);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(123, 25);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Data Hutang";
-            // 
-            // guna2Shapes1
-            // 
-            this.guna2Shapes1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.guna2Shapes1.LineThickness = 2;
-            this.guna2Shapes1.Location = new System.Drawing.Point(-100, -9);
-            this.guna2Shapes1.Name = "guna2Shapes1";
-            this.guna2Shapes1.PolygonSkip = 1;
-            this.guna2Shapes1.Rotate = 0F;
-            this.guna2Shapes1.Shape = Guna.UI2.WinForms.Enums.ShapeType.Line;
-            this.guna2Shapes1.Size = new System.Drawing.Size(1450, 200);
-            this.guna2Shapes1.TabIndex = 4;
-            this.guna2Shapes1.Text = "guna2Shapes1";
-            this.guna2Shapes1.Zoom = 80;
-            // 
-            // STARTDATE
-            // 
-            this.STARTDATE.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.STARTDATE.BorderRadius = 5;
-            this.STARTDATE.Checked = true;
-            this.STARTDATE.CustomFormat = "yyyy MMM dd";
-            this.STARTDATE.FillColor = System.Drawing.SystemColors.MenuHighlight;
-            this.STARTDATE.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.STARTDATE.ForeColor = System.Drawing.Color.White;
-            this.STARTDATE.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.STARTDATE.Location = new System.Drawing.Point(1002, 43);
-            this.STARTDATE.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
-            this.STARTDATE.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
-            this.STARTDATE.Name = "STARTDATE";
-            this.STARTDATE.Size = new System.Drawing.Size(121, 30);
-            this.STARTDATE.TabIndex = 19;
-            this.STARTDATE.Value = new System.DateTime(2023, 9, 1, 11, 34, 0, 0);
-            this.STARTDATE.ValueChanged += new System.EventHandler(this.STARTDATE_ValueChanged);
             // 
             // dgv
             // 
@@ -128,12 +86,10 @@ namespace tes
             this.ID,
             this.Column1,
             this.Column2,
-            this.Column3,
             this.Column4,
+            this.Column3,
             this.Column5,
-            this.Column6,
-            this.Column7,
-            this.Column8});
+            this.Icon});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -145,6 +101,7 @@ namespace tes
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgv.Location = new System.Drawing.Point(0, 0);
+            this.dgv.Margin = new System.Windows.Forms.Padding(4);
             this.dgv.Name = "dgv";
             this.dgv.ReadOnly = true;
             this.dgv.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -159,7 +116,7 @@ namespace tes
             this.dgv.RowHeadersVisible = false;
             this.dgv.RowHeadersWidth = 51;
             this.dgv.RowTemplate.Height = 30;
-            this.dgv.Size = new System.Drawing.Size(1088, 578);
+            this.dgv.Size = new System.Drawing.Size(1451, 669);
             this.dgv.TabIndex = 4;
             this.dgv.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.dgv.ThemeStyle.AlternatingRowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -182,10 +139,58 @@ namespace tes
             this.dgv.ThemeStyle.RowsStyle.Height = 30;
             this.dgv.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgv.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.dgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellContentClick);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(40, 59);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(167, 31);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Data Hutang";
+            // 
+            // guna2Shapes1
+            // 
+            this.guna2Shapes1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.guna2Shapes1.LineThickness = 2;
+            this.guna2Shapes1.Location = new System.Drawing.Point(-133, -11);
+            this.guna2Shapes1.Margin = new System.Windows.Forms.Padding(4);
+            this.guna2Shapes1.Name = "guna2Shapes1";
+            this.guna2Shapes1.PolygonSkip = 1;
+            this.guna2Shapes1.Rotate = 0F;
+            this.guna2Shapes1.Shape = Guna.UI2.WinForms.Enums.ShapeType.Line;
+            this.guna2Shapes1.Size = new System.Drawing.Size(1933, 246);
+            this.guna2Shapes1.TabIndex = 4;
+            this.guna2Shapes1.Text = "guna2Shapes1";
+            this.guna2Shapes1.Zoom = 80;
+            // 
+            // STARTDATE
+            // 
+            this.STARTDATE.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.STARTDATE.BorderRadius = 5;
+            this.STARTDATE.Checked = true;
+            this.STARTDATE.CustomFormat = "yyyy MMM dd";
+            this.STARTDATE.FillColor = System.Drawing.SystemColors.MenuHighlight;
+            this.STARTDATE.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.STARTDATE.ForeColor = System.Drawing.Color.White;
+            this.STARTDATE.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.STARTDATE.Location = new System.Drawing.Point(1336, 53);
+            this.STARTDATE.Margin = new System.Windows.Forms.Padding(4);
+            this.STARTDATE.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
+            this.STARTDATE.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.STARTDATE.Name = "STARTDATE";
+            this.STARTDATE.Size = new System.Drawing.Size(161, 37);
+            this.STARTDATE.TabIndex = 19;
+            this.STARTDATE.Value = new System.DateTime(2023, 9, 1, 11, 34, 0, 0);
+            this.STARTDATE.ValueChanged += new System.EventHandler(this.STARTDATE_ValueChanged);
             // 
             // ID
             // 
             this.ID.HeaderText = "ID";
+            this.ID.MinimumWidth = 6;
             this.ID.Name = "ID";
             this.ID.ReadOnly = true;
             this.ID.Visible = false;
@@ -204,57 +209,47 @@ namespace tes
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
             // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Kode Barang";
-            this.Column3.MinimumWidth = 6;
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
             // Column4
             // 
-            this.Column4.HeaderText = "Nama Barang";
+            this.Column4.HeaderText = "Supplier";
             this.Column4.MinimumWidth = 6;
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
             // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Qty";
+            this.Column3.MinimumWidth = 6;
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
             // Column5
             // 
-            this.Column5.HeaderText = "Qty";
+            this.Column5.HeaderText = "Subtotal";
             this.Column5.MinimumWidth = 6;
             this.Column5.Name = "Column5";
             this.Column5.ReadOnly = true;
             // 
-            // Column6
+            // Icon
             // 
-            this.Column6.HeaderText = "Harga";
-            this.Column6.MinimumWidth = 6;
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "Supplier";
-            this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "Payment";
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            this.Column8.Visible = false;
+            this.Icon.HeaderText = "";
+            this.Icon.MinimumWidth = 6;
+            this.Icon.Name = "Icon";
+            this.Icon.ReadOnly = true;
+            this.Icon.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Icon.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // FormDebt
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1156, 698);
+            this.ClientSize = new System.Drawing.Size(1541, 859);
             this.Controls.Add(this.STARTDATE);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.guna2Shapes1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormDebt";
             this.Text = "FormDebt";
             this.Load += new System.EventHandler(this.FormDebt_Load);
@@ -275,11 +270,9 @@ namespace tes
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private System.Windows.Forms.DataGridViewImageColumn Icon;
     }
 }

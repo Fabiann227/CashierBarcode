@@ -29,10 +29,10 @@ namespace tes
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BarangMasuk));
             this.btnExport = new Guna.UI2.WinForms.Guna2Button();
             this.groupDataPenjualan = new System.Windows.Forms.GroupBox();
@@ -49,6 +49,7 @@ namespace tes
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DeleteIcon = new System.Windows.Forms.DataGridViewImageColumn();
             this.groupDataPenjualan.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
@@ -66,9 +67,10 @@ namespace tes
             this.btnExport.ForeColor = System.Drawing.Color.White;
             this.btnExport.Image = global::tes.Properties.Resources.icons8_ms_excel_24px_3;
             this.btnExport.ImageAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.btnExport.Location = new System.Drawing.Point(727, 9);
+            this.btnExport.Location = new System.Drawing.Point(969, 11);
+            this.btnExport.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(40, 30);
+            this.btnExport.Size = new System.Drawing.Size(53, 37);
             this.btnExport.TabIndex = 35;
             // 
             // groupDataPenjualan
@@ -79,9 +81,11 @@ namespace tes
             this.groupDataPenjualan.Controls.Add(this.dgv);
             this.groupDataPenjualan.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupDataPenjualan.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.groupDataPenjualan.Location = new System.Drawing.Point(12, 59);
+            this.groupDataPenjualan.Location = new System.Drawing.Point(16, 73);
+            this.groupDataPenjualan.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupDataPenjualan.Name = "groupDataPenjualan";
-            this.groupDataPenjualan.Size = new System.Drawing.Size(971, 572);
+            this.groupDataPenjualan.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupDataPenjualan.Size = new System.Drawing.Size(1295, 704);
             this.groupDataPenjualan.TabIndex = 34;
             this.groupDataPenjualan.TabStop = false;
             this.groupDataPenjualan.Text = "Data Penjualan";
@@ -92,20 +96,20 @@ namespace tes
             this.dgv.AllowUserToDeleteRows = false;
             this.dgv.AllowUserToOrderColumns = true;
             this.dgv.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.dgv.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(56)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(56)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.dgv.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(56)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(56)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgv.ColumnHeadersHeight = 35;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -117,33 +121,35 @@ namespace tes
             this.Column5,
             this.Column6,
             this.Column7,
-            this.Column8});
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle7;
+            this.Column8,
+            this.DeleteIcon});
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgv.Location = new System.Drawing.Point(3, 19);
+            this.dgv.Location = new System.Drawing.Point(4, 24);
+            this.dgv.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dgv.Name = "dgv";
             this.dgv.ReadOnly = true;
             this.dgv.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgv.RowHeadersVisible = false;
             this.dgv.RowHeadersWidth = 51;
             this.dgv.RowTemplate.Height = 30;
-            this.dgv.Size = new System.Drawing.Size(965, 550);
+            this.dgv.Size = new System.Drawing.Size(1287, 676);
             this.dgv.TabIndex = 3;
             this.dgv.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.dgv.ThemeStyle.AlternatingRowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -166,6 +172,7 @@ namespace tes
             this.dgv.ThemeStyle.RowsStyle.Height = 30;
             this.dgv.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgv.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.dgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellContentClick);
             // 
             // PRINTALL
             // 
@@ -180,9 +187,10 @@ namespace tes
             this.PRINTALL.ForeColor = System.Drawing.Color.White;
             this.PRINTALL.Image = global::tes.Properties.Resources.icons8_print_24px;
             this.PRINTALL.ImageAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.PRINTALL.Location = new System.Drawing.Point(773, 9);
+            this.PRINTALL.Location = new System.Drawing.Point(1031, 11);
+            this.PRINTALL.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.PRINTALL.Name = "PRINTALL";
-            this.PRINTALL.Size = new System.Drawing.Size(40, 30);
+            this.PRINTALL.Size = new System.Drawing.Size(53, 37);
             this.PRINTALL.TabIndex = 33;
             this.PRINTALL.Visible = false;
             // 
@@ -195,11 +203,12 @@ namespace tes
             this.STARTDATE.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.STARTDATE.ForeColor = System.Drawing.Color.White;
             this.STARTDATE.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.STARTDATE.Location = new System.Drawing.Point(15, 9);
+            this.STARTDATE.Location = new System.Drawing.Point(20, 11);
+            this.STARTDATE.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.STARTDATE.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.STARTDATE.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.STARTDATE.Name = "STARTDATE";
-            this.STARTDATE.Size = new System.Drawing.Size(121, 30);
+            this.STARTDATE.Size = new System.Drawing.Size(161, 37);
             this.STARTDATE.TabIndex = 32;
             this.STARTDATE.Value = new System.DateTime(2023, 9, 1, 11, 34, 0, 0);
             this.STARTDATE.ValueChanged += new System.EventHandler(this.STARTDATE_ValueChanged);
@@ -218,18 +227,19 @@ namespace tes
             this.SEARCH.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.SEARCH.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.SEARCH.IconRight = ((System.Drawing.Image)(resources.GetObject("SEARCH.IconRight")));
-            this.SEARCH.Location = new System.Drawing.Point(819, 9);
-            this.SEARCH.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.SEARCH.Location = new System.Drawing.Point(1092, 11);
+            this.SEARCH.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.SEARCH.Name = "SEARCH";
             this.SEARCH.PasswordChar = '\0';
             this.SEARCH.PlaceholderText = "Cari Data";
             this.SEARCH.SelectedText = "";
-            this.SEARCH.Size = new System.Drawing.Size(164, 30);
+            this.SEARCH.Size = new System.Drawing.Size(219, 37);
             this.SEARCH.TabIndex = 31;
             // 
             // ID
             // 
             this.ID.HeaderText = "ID";
+            this.ID.MinimumWidth = 6;
             this.ID.Name = "ID";
             this.ID.ReadOnly = true;
             this.ID.Visible = false;
@@ -279,27 +289,37 @@ namespace tes
             // Column7
             // 
             this.Column7.HeaderText = "Supplier";
+            this.Column7.MinimumWidth = 6;
             this.Column7.Name = "Column7";
             this.Column7.ReadOnly = true;
             // 
             // Column8
             // 
             this.Column8.HeaderText = "Payment";
+            this.Column8.MinimumWidth = 6;
             this.Column8.Name = "Column8";
             this.Column8.ReadOnly = true;
             this.Column8.Visible = false;
             // 
+            // DeleteIcon
+            // 
+            this.DeleteIcon.HeaderText = "";
+            this.DeleteIcon.MinimumWidth = 6;
+            this.DeleteIcon.Name = "DeleteIcon";
+            this.DeleteIcon.ReadOnly = true;
+            // 
             // BarangMasuk
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(995, 640);
+            this.ClientSize = new System.Drawing.Size(1327, 788);
             this.Controls.Add(this.btnExport);
             this.Controls.Add(this.groupDataPenjualan);
             this.Controls.Add(this.PRINTALL);
             this.Controls.Add(this.STARTDATE);
             this.Controls.Add(this.SEARCH);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "BarangMasuk";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BarangMasuk";
@@ -327,5 +347,6 @@ namespace tes
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private System.Windows.Forms.DataGridViewImageColumn DeleteIcon;
     }
 }

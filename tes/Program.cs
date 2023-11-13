@@ -9,6 +9,7 @@ using System.IO;
 
 namespace tes
 {
+
     static class Program
     {
         /// <summary>
@@ -19,7 +20,7 @@ namespace tes
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormMain()); 
+            Application.Run(new FormLogin()); 
         }
     }
 }

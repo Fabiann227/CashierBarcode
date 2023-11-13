@@ -322,6 +322,5 @@ namespace tes
                 UpdateStokDeleted(kodeBarang, retur);
             }
         }
-
     }
 }

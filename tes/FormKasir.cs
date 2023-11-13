@@ -89,7 +89,7 @@ namespace tes
 
                     foreach (DataGridViewRow row in dgv.Rows)
                     {
-                        if (row.Cells["KodeBarang"].Value != null && row.Cells["KodeBarang"].Value.ToString() == kode_brg)
+                        if (row.Cells["KodeBarang"].Value != null && row.Cells["KodeBarang"].Value.ToString() == kode_brg.ToUpper())
                         {
                             int rowIndex = row.Index;
                             int qty = Convert.ToInt32(dgv.Rows[rowIndex].Cells["Qty"].Value) + 1;
@@ -302,44 +302,85 @@ namespace tes
 
         private void btnBayar_Click(object sender, EventArgs e)
         {
-            decimal totalBayar = decimal.Parse(lbl_TotalBayar.Text, NumberStyles.Currency, new CultureInfo("id-ID"));
-
-            decimal jumlahBayar = decimal.Parse(txtBayar.Text, NumberStyles.Currency, new CultureInfo("id-ID"));
-
-            if (jumlahBayar < totalBayar)
+            if (checkBox1.Checked == true)
             {
-                MessageBox.Show("Jumlah bayar kurang dari total bayar.\nHarap periksa kembali jumlah bayar.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                decimal totalBayar = decimal.Parse(lbl_TotalBayar.Text, NumberStyles.Currency, new CultureInfo("id-ID"));
+
+                decimal jumlahBayar = decimal.Parse(txtBayar.Text, NumberStyles.Currency, new CultureInfo("id-ID"));
+
+                decimal sisa = totalBayar - jumlahBayar;
+
+                lbl_Kembalian.Text = sisa.ToString("N0", new CultureInfo("id-ID"));
+                MessageBox.Show($"Sisa Hutang: {sisa.ToString("N0", new CultureInfo("id-ID"))}", "Hutang" , MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                decimal kembalian = jumlahBayar - totalBayar;
-                lbl_Kembalian.Text = kembalian.ToString("N0", new CultureInfo("id-ID"));
+                decimal totalBayar = decimal.Parse(lbl_TotalBayar.Text, NumberStyles.Currency, new CultureInfo("id-ID"));
 
-                MessageBox.Show($"Kembalian: {kembalian.ToString("N0", new CultureInfo("id-ID"))}", "Kembalian", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                decimal jumlahBayar = decimal.Parse(txtBayar.Text, NumberStyles.Currency, new CultureInfo("id-ID"));
+
+                if (jumlahBayar < totalBayar)
+                {
+                    MessageBox.Show("Jumlah bayar kurang dari total bayar.\nHarap periksa kembali jumlah bayar.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    decimal kembalian = jumlahBayar - totalBayar;
+                    lbl_Kembalian.Text = kembalian.ToString("N0", new CultureInfo("id-ID"));
+
+                    MessageBox.Show($"Kembalian: {kembalian.ToString("N0", new CultureInfo("id-ID"))}", "Kembalian", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
-        public class DataProduk
+
+        private void insertToKas(string kode)
         {
-            public string namaBarang { get; set; }
-            public string kodeBarang { get; set; }
-            public decimal Harga { get; set; }
-            public int QTY { get; set; }
-            public decimal Total { get; set; }
+            try
+            {
+                string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};";
+                string query = "INSERT INTO pembayaran (tgl_pembelian, tunai, tgl_pembayaran, faktur, jenis) values (@tgl, @tunai, @tgl_p, @faktur, 'piutang')";
+
+                string tgl_p = DateTime.Now.ToString("yyyy-MM-dd");
+
+                decimal tunai = decimal.Parse(txtBayar.Text);
+
+
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@tgl", tgl_p);
+                        cmd.Parameters.AddWithValue("@tgl_p", tgl_p);
+                        cmd.Parameters.AddWithValue("@tunai", tunai);
+                        cmd.Parameters.AddWithValue("@faktur", kode);
+                        cmd.ExecuteNonQuery();
+                    }
+                    connection.Close();
+                }
+                MessageBox.Show("Data Berhasil Ditambahkan!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Terjadi Kesalahan Saat Insert Data Pembayaran:", ex.Message);
+            }
         }
-
-        DataSet1 rf = new DataSet1();
-
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if(checkBox1.Checked == true)
             {
                 label5.Visible = true;
+                label7.Text = "Sisa :";
+                label6.Text = "Dp : Rp";
                 namaTextBox.Visible = true;
             }
             else
             {
                 label5.Visible = false;
+                label6.Text = "Bayar : Rp";
+                label7.Text = "Kembalian :";
                 namaTextBox.Visible = false;
             }
         }
@@ -352,7 +393,7 @@ namespace tes
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
-
+                
                 foreach (DataGridViewRow row in dgv.Rows)
                 {
                     string kodeBarang = row.Cells["KodeBarang"].Value.ToString();
@@ -377,8 +418,8 @@ namespace tes
                         namaPelanggan = "-";
                     }
 
-                    string insertQuery = "INSERT INTO transaction (no_faktur, kode, nama, qty, harga, subtotal, mark_up, laba, payment, namaPelanggan, Tunai) " +
-                                            "VALUES (@no_faktur, @kode_barang, @nama_barang, @qty, @harga_jual, @subtotal, @mark_up, @laba, @payment, @namaP, @Tunai)";
+                    string insertQuery = "INSERT INTO transaction (no_faktur, kode, nama, qty, harga, subtotal, mark_up, laba, payment, namaPelanggan, Tunai, retur) " +
+                                            "VALUES (@no_faktur, @kode_barang, @nama_barang, @qty, @harga_jual, @subtotal, @mark_up, @laba, @payment, @namaP, @Tunai, 0)";
 
                     MySqlCommand command = new MySqlCommand(insertQuery, connection);
                     command.Parameters.AddWithValue("@no_faktur", noFaktur);
@@ -396,6 +437,7 @@ namespace tes
                     command.ExecuteNonQuery();
 
                 }
+                insertToKas(noFaktur);
                 connection.Close();
                 DateTime tgl = DateTime.Now;
                 if(checkBox1.Checked == true) {

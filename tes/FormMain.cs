@@ -7,20 +7,119 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
+using MySql.Data.MySqlClient;
 using System.Windows.Forms;
+using System.Windows.Media.TextFormatting;
 
 namespace tes
 {
     public partial class FormMain : Form
     {
+        string server = "localhost";
+        string database = "cashier";
+        string uid = "root";
+        string password = "";
+        int lbm = 0;
+        int lbk = 0;
+        int lh = 0;
+        int lp = 0;
+        public string username { get; set; }
+        public string passwords { get; set; }
+
         Button currentButton;
         public FormMain()
         {
-            InitializeComponent();
+            InitializeComponent(); 
+        }
+        bool laporan = false;
+
+        private void loadData()
+        {
+            string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};";
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            string query = "SELECT * FROM staff where User = @username and Password = @password;";
+            connection.ConnectionString = connectionString;
+            connection.Open();
+            using(MySqlCommand cmd = new MySqlCommand(query, connection))
+            {
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@password", passwords);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        int md = int.Parse(reader["md"].ToString());
+                        int mp = int.Parse(reader["mp"].ToString());
+                        int mbm = int.Parse(reader["mbm"].ToString());
+                        int mbk = int.Parse(reader["mbk"].ToString());
+                        int mk = int.Parse(reader["mk"].ToString());
+                        lbm = int.Parse(reader["lbm"].ToString());
+                        lbk = int.Parse(reader["lbk"].ToString());
+                        lh = int.Parse(reader["lh"].ToString());
+                        lp = int.Parse(reader["lp"].ToString());
+                        int llss = int.Parse(reader["llss"].ToString());
+
+                        btnDashboard.Visible = md == 1;
+                        btnMaster.Visible = mp == 1;
+                        button3.Visible = mbm == 1;
+                        btnFaktur.Visible = mbk == 1;
+                        btnKas.Visible = mk == 1;
+                        button2.Visible = lbm == 1 || lbk == 1 || lh == 1 || lp == 1;
+                        /*btnBarangMasuk.Visible = lbm == 1;
+                        btnlaporan.Visible = lbk == 1;
+                        btnDebt.Visible = lh == 1;
+                        btnClientDebt.Visible = lp == 1;*/
+                        btnStaff.Visible = llss == 1;
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Data Tidak Di Temukan!!!");
+                    }
+                }
+            }
+            connection.Close();
         }
 
-        bool transaksi = false;
-        bool laporan = false;
+        private void button2_Click(object sender, EventArgs e)
+        {
+            activebutton(sender);
+            laporan = !laporan;
+
+            if (lp == 1)
+            {
+                btnClientDebt.Visible = laporan;
+            }
+            else
+            {
+                btnClientDebt.Visible = false;
+            }
+            if (lh == 1)
+            {
+                btnDebt.Visible = laporan;
+            }
+            else
+            {
+                btnDebt.Visible = false;
+            }
+            if (lbk == 1)
+            {
+                btnlaporan.Visible = laporan;
+            }
+            else
+            {
+                btnlaporan.Visible = false;
+            }
+            if (lbm == 1)
+            {
+                btnBarangMasuk.Visible = laporan;
+            }
+            else
+            {
+                btnBarangMasuk.Visible = false;
+            }
+
+        }
 
         public void LoadForm(object Form)
         {
@@ -95,6 +194,10 @@ namespace tes
             btnKas.BackColor = Color.FromArgb(27, 37, 71);
             btnKas.ForeColor = Color.Gainsboro;
             btnKas.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+
+            btnStaff.BackColor = Color.FromArgb(27, 37, 71);
+            btnStaff.ForeColor = Color.Gainsboro;
+            btnStaff.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         }
 
         private void btnDashboard_Click(object sender, EventArgs e)
@@ -131,6 +234,7 @@ namespace tes
         private void FormMain_Load(object sender, EventArgs e)
         {
             LoadForm(new FormDashboard());
+            loadData();
         }
 
         private void btnUserSettings_Click(object sender, EventArgs e)
@@ -144,37 +248,13 @@ namespace tes
             LoadForm(new FormKasir());
             activebutton(sender);
         }
-
-        private void btnlaporan_Click(object sender, EventArgs e)
-        {
-            LoadForm(new frmReport());
-            activebutton(sender);
-        }
         private void btnKas_Click(object sender, EventArgs e)
         {
             LoadForm(new FormKas());
             activebutton(sender);
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            activebutton(sender);
-            laporan = !laporan;
-            if (laporan == true)
-            {
-                btnClientDebt.Visible = true;
-                btnDebt.Visible = true;
-                btnBarangMasuk.Visible = true;
-                btnlaporan.Visible = true;
-            }
-            else
-            {
-                btnlaporan.Visible = false;
-                btnDebt.Visible = false;
-                btnBarangMasuk.Visible = false;
-                btnClientDebt.Visible = false;
-            }
-        }
+
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -202,6 +282,12 @@ namespace tes
         private void btnClientDebt_Click(object sender, EventArgs e)
         {
             LoadForm(new FormReceivables());
+            activebutton(sender);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LoadForm(new FormUserSettings());
             activebutton(sender);
         }
     }

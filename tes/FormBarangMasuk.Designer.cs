@@ -43,11 +43,21 @@ namespace tes
             this.txtScan = new Guna.UI2.WinForms.Guna2TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgv = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.KodeBarang = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NamaBarang = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HargaJual = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnDelete = new System.Windows.Forms.DataGridViewImageColumn();
             this.lbl_NOFAKTUR = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
+            this.B_KELUAR = new Guna.UI2.WinForms.Guna2NumericUpDown();
+            this.label14 = new System.Windows.Forms.Label();
+            this.B_MASUK = new Guna.UI2.WinForms.Guna2NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
             this.S_AKHIR = new Guna.UI2.WinForms.Guna2NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -73,23 +83,15 @@ namespace tes
             this.label19 = new System.Windows.Forms.Label();
             this.HARGAJUAL1 = new Guna.UI2.WinForms.Guna2TextBox();
             this.MODAL = new Guna.UI2.WinForms.Guna2TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.B_MASUK = new Guna.UI2.WinForms.Guna2NumericUpDown();
-            this.label14 = new System.Windows.Forms.Label();
-            this.B_KELUAR = new Guna.UI2.WinForms.Guna2NumericUpDown();
-            this.KodeBarang = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NamaBarang = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HargaJual = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnDelete = new System.Windows.Forms.DataGridViewImageColumn();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txtBayar = new Guna.UI2.WinForms.Guna2TextBox();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.B_KELUAR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.B_MASUK)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.S_AKHIR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.S_AWAL)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.B_MASUK)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.B_KELUAR)).BeginInit();
             this.SuspendLayout();
             // 
             // label5
@@ -98,10 +100,9 @@ namespace tes
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(141, 115);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Location = new System.Drawing.Point(188, 142);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(45, 14);
+            this.label5.Size = new System.Drawing.Size(55, 18);
             this.label5.TabIndex = 41;
             this.label5.Text = "Suplier";
             // 
@@ -118,33 +119,35 @@ namespace tes
             this.namaTextBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.namaTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.namaTextBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.namaTextBox.Location = new System.Drawing.Point(191, 106);
+            this.namaTextBox.Location = new System.Drawing.Point(255, 130);
+            this.namaTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.namaTextBox.Name = "namaTextBox";
             this.namaTextBox.PasswordChar = '\0';
             this.namaTextBox.PlaceholderText = "";
             this.namaTextBox.SelectedText = "";
-            this.namaTextBox.Size = new System.Drawing.Size(149, 31);
+            this.namaTextBox.Size = new System.Drawing.Size(199, 38);
             this.namaTextBox.TabIndex = 40;
             // 
             // checkBox1
             // 
-            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(358, 115);
+            this.checkBox1.Location = new System.Drawing.Point(485, 142);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(53, 17);
+            this.checkBox1.Size = new System.Drawing.Size(63, 20);
             this.checkBox1.TabIndex = 39;
             this.checkBox1.Text = "Kredit";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // guna2Separator1
             // 
             this.guna2Separator1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2Separator1.Location = new System.Drawing.Point(2, 67);
-            this.guna2Separator1.Margin = new System.Windows.Forms.Padding(2);
+            this.guna2Separator1.Location = new System.Drawing.Point(3, 82);
+            this.guna2Separator1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2Separator1.Name = "guna2Separator1";
-            this.guna2Separator1.Size = new System.Drawing.Size(1037, 8);
+            this.guna2Separator1.Size = new System.Drawing.Size(1383, 10);
             this.guna2Separator1.TabIndex = 38;
             // 
             // btnSave
@@ -159,10 +162,10 @@ namespace tes
             this.btnSave.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold);
             this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.Location = new System.Drawing.Point(840, 15);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSave.Location = new System.Drawing.Point(1243, 18);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(97, 31);
+            this.btnSave.Size = new System.Drawing.Size(129, 38);
             this.btnSave.TabIndex = 35;
             this.btnSave.Text = "Simpan";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -179,12 +182,13 @@ namespace tes
             this.guna2Button1.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold);
             this.guna2Button1.ForeColor = System.Drawing.Color.White;
             this.guna2Button1.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button1.Image")));
-            this.guna2Button1.Location = new System.Drawing.Point(941, 15);
-            this.guna2Button1.Margin = new System.Windows.Forms.Padding(2);
+            this.guna2Button1.Location = new System.Drawing.Point(1255, 18);
+            this.guna2Button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2Button1.Name = "guna2Button1";
-            this.guna2Button1.Size = new System.Drawing.Size(88, 31);
+            this.guna2Button1.Size = new System.Drawing.Size(117, 38);
             this.guna2Button1.TabIndex = 37;
             this.guna2Button1.Text = "Cetak";
+            this.guna2Button1.Visible = false;
             // 
             // txtScan
             // 
@@ -199,13 +203,13 @@ namespace tes
             this.txtScan.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtScan.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtScan.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtScan.Location = new System.Drawing.Point(18, 106);
-            this.txtScan.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.txtScan.Location = new System.Drawing.Point(24, 130);
+            this.txtScan.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtScan.Name = "txtScan";
             this.txtScan.PasswordChar = '\0';
             this.txtScan.PlaceholderText = "Scan Disini";
             this.txtScan.SelectedText = "";
-            this.txtScan.Size = new System.Drawing.Size(76, 31);
+            this.txtScan.Size = new System.Drawing.Size(101, 38);
             this.txtScan.TabIndex = 34;
             this.txtScan.TextChanged += new System.EventHandler(this.txtScan_TextChanged);
             // 
@@ -215,11 +219,11 @@ namespace tes
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.dgv);
-            this.groupBox2.Location = new System.Drawing.Point(2, 159);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox2.Location = new System.Drawing.Point(3, 196);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(1037, 310);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox2.Size = new System.Drawing.Size(1383, 382);
             this.groupBox2.TabIndex = 32;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Cart";
@@ -262,8 +266,8 @@ namespace tes
             this.dgv.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgv.Location = new System.Drawing.Point(2, 15);
-            this.dgv.Margin = new System.Windows.Forms.Padding(2);
+            this.dgv.Location = new System.Drawing.Point(3, 17);
+            this.dgv.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgv.Name = "dgv";
             this.dgv.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -277,7 +281,7 @@ namespace tes
             this.dgv.RowHeadersVisible = false;
             this.dgv.RowHeadersWidth = 51;
             this.dgv.RowTemplate.Height = 28;
-            this.dgv.Size = new System.Drawing.Size(1033, 293);
+            this.dgv.Size = new System.Drawing.Size(1377, 363);
             this.dgv.TabIndex = 0;
             this.dgv.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.dgv.ThemeStyle.AlternatingRowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -301,537 +305,6 @@ namespace tes
             this.dgv.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgv.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             this.dgv.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellValueChanged);
-            // 
-            // lbl_NOFAKTUR
-            // 
-            this.lbl_NOFAKTUR.Font = new System.Drawing.Font("Bahnschrift", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_NOFAKTUR.Location = new System.Drawing.Point(153, 15);
-            this.lbl_NOFAKTUR.Name = "lbl_NOFAKTUR";
-            this.lbl_NOFAKTUR.Size = new System.Drawing.Size(100, 25);
-            this.lbl_NOFAKTUR.TabIndex = 29;
-            this.lbl_NOFAKTUR.Text = "1000";
-            this.lbl_NOFAKTUR.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Bahnschrift", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(12, 15);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(135, 25);
-            this.label9.TabIndex = 30;
-            this.label9.Text = "NO FAKTUR :";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.guna2TextBox1);
-            this.groupBox1.Controls.Add(this.B_KELUAR);
-            this.groupBox1.Controls.Add(this.label14);
-            this.groupBox1.Controls.Add(this.B_MASUK);
-            this.groupBox1.Controls.Add(this.label12);
-            this.groupBox1.Controls.Add(this.S_AKHIR);
-            this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.PENDAPATAN);
-            this.groupBox1.Controls.Add(this.PERCENTASE);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.Harta);
-            this.groupBox1.Controls.Add(this.label24);
-            this.groupBox1.Controls.Add(this.guna2TextBox2);
-            this.groupBox1.Controls.Add(this.guna2TextBox3);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.DISTRIBUTOR);
-            this.groupBox1.Controls.Add(this.guna2TextBox4);
-            this.groupBox1.Controls.Add(this.btnCancel);
-            this.groupBox1.Controls.Add(this.guna2Button2);
-            this.groupBox1.Controls.Add(this.S_AWAL);
-            this.groupBox1.Controls.Add(this.label13);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.label15);
-            this.groupBox1.Controls.Add(this.label19);
-            this.groupBox1.Controls.Add(this.HARGAJUAL1);
-            this.groupBox1.Controls.Add(this.MODAL);
-            this.groupBox1.Location = new System.Drawing.Point(12, 483);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1016, 145);
-            this.groupBox1.TabIndex = 42;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Input Data";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(677, 114);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(33, 14);
-            this.label3.TabIndex = 32;
-            this.label3.Text = "Laba";
-            // 
-            // guna2TextBox1
-            // 
-            this.guna2TextBox1.BorderRadius = 12;
-            this.guna2TextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.guna2TextBox1.DefaultText = "0";
-            this.guna2TextBox1.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.guna2TextBox1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.guna2TextBox1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox1.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox1.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2TextBox1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox1.Location = new System.Drawing.Point(749, 105);
-            this.guna2TextBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2TextBox1.Name = "guna2TextBox1";
-            this.guna2TextBox1.PasswordChar = '\0';
-            this.guna2TextBox1.PlaceholderText = "";
-            this.guna2TextBox1.SelectedText = "";
-            this.guna2TextBox1.Size = new System.Drawing.Size(152, 29);
-            this.guna2TextBox1.TabIndex = 31;
-            // 
-            // S_AKHIR
-            // 
-            this.S_AKHIR.BackColor = System.Drawing.Color.Transparent;
-            this.S_AKHIR.BorderRadius = 12;
-            this.S_AKHIR.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.S_AKHIR.Enabled = false;
-            this.S_AKHIR.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.S_AKHIR.Location = new System.Drawing.Point(749, 62);
-            this.S_AKHIR.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.S_AKHIR.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.S_AKHIR.Name = "S_AKHIR";
-            this.S_AKHIR.Size = new System.Drawing.Size(75, 29);
-            this.S_AKHIR.TabIndex = 25;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(677, 70);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(63, 14);
-            this.label10.TabIndex = 26;
-            this.label10.Text = "Stok Akhir";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(448, 111);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(68, 14);
-            this.label4.TabIndex = 24;
-            this.label4.Text = "Pendapatan";
-            // 
-            // PENDAPATAN
-            // 
-            this.PENDAPATAN.BorderRadius = 12;
-            this.PENDAPATAN.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.PENDAPATAN.DefaultText = "";
-            this.PENDAPATAN.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.PENDAPATAN.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.PENDAPATAN.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.PENDAPATAN.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.PENDAPATAN.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.PENDAPATAN.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.PENDAPATAN.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.PENDAPATAN.Location = new System.Drawing.Point(534, 106);
-            this.PENDAPATAN.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.PENDAPATAN.Name = "PENDAPATAN";
-            this.PENDAPATAN.PasswordChar = '\0';
-            this.PENDAPATAN.PlaceholderText = "";
-            this.PENDAPATAN.SelectedText = "";
-            this.PENDAPATAN.Size = new System.Drawing.Size(113, 29);
-            this.PENDAPATAN.TabIndex = 23;
-            // 
-            // PERCENTASE
-            // 
-            this.PERCENTASE.BorderRadius = 12;
-            this.PERCENTASE.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.PERCENTASE.DefaultText = "";
-            this.PERCENTASE.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.PERCENTASE.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.PERCENTASE.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.PERCENTASE.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.PERCENTASE.Enabled = false;
-            this.PERCENTASE.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.PERCENTASE.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.PERCENTASE.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.PERCENTASE.Location = new System.Drawing.Point(451, 61);
-            this.PERCENTASE.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.PERCENTASE.Name = "PERCENTASE";
-            this.PERCENTASE.PasswordChar = '\0';
-            this.PERCENTASE.PlaceholderText = "";
-            this.PERCENTASE.SelectedText = "";
-            this.PERCENTASE.Size = new System.Drawing.Size(88, 30);
-            this.PERCENTASE.TabIndex = 19;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(232, 111);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(36, 14);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "Harta";
-            // 
-            // Harta
-            // 
-            this.Harta.BorderRadius = 12;
-            this.Harta.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.Harta.DefaultText = "";
-            this.Harta.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.Harta.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.Harta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.Harta.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.Harta.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.Harta.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.Harta.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.Harta.Location = new System.Drawing.Point(315, 105);
-            this.Harta.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Harta.Name = "Harta";
-            this.Harta.PasswordChar = '\0';
-            this.Harta.PlaceholderText = "";
-            this.Harta.SelectedText = "";
-            this.Harta.Size = new System.Drawing.Size(113, 29);
-            this.Harta.TabIndex = 17;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(448, 25);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(54, 14);
-            this.label24.TabIndex = 16;
-            this.label24.Text = "Mark-Up";
-            // 
-            // guna2TextBox2
-            // 
-            this.guna2TextBox2.BorderRadius = 12;
-            this.guna2TextBox2.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.guna2TextBox2.DefaultText = "";
-            this.guna2TextBox2.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.guna2TextBox2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.guna2TextBox2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox2.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox2.Enabled = false;
-            this.guna2TextBox2.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2TextBox2.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox2.Location = new System.Drawing.Point(534, 19);
-            this.guna2TextBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2TextBox2.Name = "guna2TextBox2";
-            this.guna2TextBox2.PasswordChar = '\0';
-            this.guna2TextBox2.PlaceholderText = "";
-            this.guna2TextBox2.SelectedText = "";
-            this.guna2TextBox2.Size = new System.Drawing.Size(113, 30);
-            this.guna2TextBox2.TabIndex = 15;
-            // 
-            // guna2TextBox3
-            // 
-            this.guna2TextBox3.BorderRadius = 12;
-            this.guna2TextBox3.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.guna2TextBox3.DefaultText = "";
-            this.guna2TextBox3.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.guna2TextBox3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.guna2TextBox3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox3.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox3.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox3.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2TextBox3.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox3.Location = new System.Drawing.Point(98, 19);
-            this.guna2TextBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2TextBox3.Name = "guna2TextBox3";
-            this.guna2TextBox3.PasswordChar = '\0';
-            this.guna2TextBox3.PlaceholderText = "";
-            this.guna2TextBox3.SelectedText = "";
-            this.guna2TextBox3.Size = new System.Drawing.Size(114, 30);
-            this.guna2TextBox3.TabIndex = 14;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(17, 114);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(45, 14);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Suplier";
-            // 
-            // DISTRIBUTOR
-            // 
-            this.DISTRIBUTOR.BorderRadius = 12;
-            this.DISTRIBUTOR.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.DISTRIBUTOR.DefaultText = "";
-            this.DISTRIBUTOR.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.DISTRIBUTOR.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.DISTRIBUTOR.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.DISTRIBUTOR.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.DISTRIBUTOR.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.DISTRIBUTOR.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.DISTRIBUTOR.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.DISTRIBUTOR.Location = new System.Drawing.Point(97, 106);
-            this.DISTRIBUTOR.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.DISTRIBUTOR.Name = "DISTRIBUTOR";
-            this.DISTRIBUTOR.PasswordChar = '\0';
-            this.DISTRIBUTOR.PlaceholderText = "";
-            this.DISTRIBUTOR.SelectedText = "";
-            this.DISTRIBUTOR.Size = new System.Drawing.Size(114, 29);
-            this.DISTRIBUTOR.TabIndex = 12;
-            // 
-            // guna2TextBox4
-            // 
-            this.guna2TextBox4.BorderRadius = 12;
-            this.guna2TextBox4.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.guna2TextBox4.DefaultText = "";
-            this.guna2TextBox4.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.guna2TextBox4.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.guna2TextBox4.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox4.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox4.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox4.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2TextBox4.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox4.Location = new System.Drawing.Point(97, 61);
-            this.guna2TextBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2TextBox4.Name = "guna2TextBox4";
-            this.guna2TextBox4.PasswordChar = '\0';
-            this.guna2TextBox4.PlaceholderText = "";
-            this.guna2TextBox4.SelectedText = "";
-            this.guna2TextBox4.Size = new System.Drawing.Size(114, 30);
-            this.guna2TextBox4.TabIndex = 11;
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.BorderRadius = 12;
-            this.btnCancel.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnCancel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnCancel.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnCancel.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnCancel.FillColor = System.Drawing.Color.Maroon;
-            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
-            this.btnCancel.ImageAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.btnCancel.Location = new System.Drawing.Point(967, 104);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(40, 30);
-            this.btnCancel.TabIndex = 5;
-            // 
-            // guna2Button2
-            // 
-            this.guna2Button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2Button2.BorderRadius = 12;
-            this.guna2Button2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(56)))));
-            this.guna2Button2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button2.ForeColor = System.Drawing.Color.White;
-            this.guna2Button2.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button2.Image")));
-            this.guna2Button2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.guna2Button2.Location = new System.Drawing.Point(923, 104);
-            this.guna2Button2.Name = "guna2Button2";
-            this.guna2Button2.Size = new System.Drawing.Size(40, 30);
-            this.guna2Button2.TabIndex = 5;
-            this.guna2Button2.Click += new System.EventHandler(this.guna2Button2_Click);
-            // 
-            // S_AWAL
-            // 
-            this.S_AWAL.BackColor = System.Drawing.Color.Transparent;
-            this.S_AWAL.BorderRadius = 12;
-            this.S_AWAL.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.S_AWAL.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.S_AWAL.Location = new System.Drawing.Point(749, 19);
-            this.S_AWAL.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.S_AWAL.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.S_AWAL.Name = "S_AWAL";
-            this.S_AWAL.Size = new System.Drawing.Size(75, 29);
-            this.S_AWAL.TabIndex = 3;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(528, -14);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(63, 14);
-            this.label13.TabIndex = 5;
-            this.label13.Text = "Harga Jual";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(545, 69);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(15, 14);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "%";
-            this.label1.Visible = false;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(232, 69);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(63, 14);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Harga Jual";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(232, 25);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(61, 14);
-            this.label8.TabIndex = 4;
-            this.label8.Text = "Harga Beli";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(677, 27);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(60, 14);
-            this.label11.TabIndex = 3;
-            this.label11.Text = "Stok Awal";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(17, 66);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(78, 14);
-            this.label15.TabIndex = 2;
-            this.label15.Text = "Nama Barang";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(17, 23);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(73, 14);
-            this.label19.TabIndex = 1;
-            this.label19.Text = "kode Barang";
-            // 
-            // HARGAJUAL1
-            // 
-            this.HARGAJUAL1.BorderRadius = 12;
-            this.HARGAJUAL1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.HARGAJUAL1.DefaultText = "0";
-            this.HARGAJUAL1.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.HARGAJUAL1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.HARGAJUAL1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.HARGAJUAL1.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.HARGAJUAL1.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.HARGAJUAL1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.HARGAJUAL1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.HARGAJUAL1.Location = new System.Drawing.Point(315, 61);
-            this.HARGAJUAL1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.HARGAJUAL1.Name = "HARGAJUAL1";
-            this.HARGAJUAL1.PasswordChar = '\0';
-            this.HARGAJUAL1.PlaceholderText = "";
-            this.HARGAJUAL1.SelectedText = "";
-            this.HARGAJUAL1.Size = new System.Drawing.Size(111, 29);
-            this.HARGAJUAL1.TabIndex = 0;
-            // 
-            // MODAL
-            // 
-            this.MODAL.BorderRadius = 12;
-            this.MODAL.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.MODAL.DefaultText = "0";
-            this.MODAL.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.MODAL.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.MODAL.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.MODAL.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.MODAL.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.MODAL.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.MODAL.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.MODAL.Location = new System.Drawing.Point(313, 19);
-            this.MODAL.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.MODAL.Name = "MODAL";
-            this.MODAL.PasswordChar = '\0';
-            this.MODAL.PlaceholderText = "";
-            this.MODAL.SelectedText = "";
-            this.MODAL.Size = new System.Drawing.Size(113, 29);
-            this.MODAL.TabIndex = 0;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(860, 27);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(41, 14);
-            this.label12.TabIndex = 28;
-            this.label12.Text = "Masuk";
-            // 
-            // B_MASUK
-            // 
-            this.B_MASUK.BackColor = System.Drawing.Color.Transparent;
-            this.B_MASUK.BorderRadius = 12;
-            this.B_MASUK.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.B_MASUK.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.B_MASUK.Location = new System.Drawing.Point(935, 19);
-            this.B_MASUK.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.B_MASUK.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.B_MASUK.Name = "B_MASUK";
-            this.B_MASUK.Size = new System.Drawing.Size(75, 29);
-            this.B_MASUK.TabIndex = 27;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(860, 70);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(42, 14);
-            this.label14.TabIndex = 30;
-            this.label14.Text = "Keluar";
-            // 
-            // B_KELUAR
-            // 
-            this.B_KELUAR.BackColor = System.Drawing.Color.Transparent;
-            this.B_KELUAR.BorderRadius = 12;
-            this.B_KELUAR.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.B_KELUAR.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.B_KELUAR.Location = new System.Drawing.Point(935, 62);
-            this.B_KELUAR.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.B_KELUAR.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.B_KELUAR.Name = "B_KELUAR";
-            this.B_KELUAR.Size = new System.Drawing.Size(75, 29);
-            this.B_KELUAR.TabIndex = 29;
             // 
             // KodeBarang
             // 
@@ -875,11 +348,600 @@ namespace tes
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.ReadOnly = true;
             // 
+            // lbl_NOFAKTUR
+            // 
+            this.lbl_NOFAKTUR.Font = new System.Drawing.Font("Bahnschrift", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_NOFAKTUR.Location = new System.Drawing.Point(204, 18);
+            this.lbl_NOFAKTUR.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbl_NOFAKTUR.Name = "lbl_NOFAKTUR";
+            this.lbl_NOFAKTUR.Size = new System.Drawing.Size(133, 31);
+            this.lbl_NOFAKTUR.TabIndex = 29;
+            this.lbl_NOFAKTUR.Text = "1000";
+            this.lbl_NOFAKTUR.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Bahnschrift", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(16, 18);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(169, 33);
+            this.label9.TabIndex = 30;
+            this.label9.Text = "NO FAKTUR :";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.guna2TextBox1);
+            this.groupBox1.Controls.Add(this.B_KELUAR);
+            this.groupBox1.Controls.Add(this.label14);
+            this.groupBox1.Controls.Add(this.B_MASUK);
+            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.S_AKHIR);
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.PENDAPATAN);
+            this.groupBox1.Controls.Add(this.PERCENTASE);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.Harta);
+            this.groupBox1.Controls.Add(this.label24);
+            this.groupBox1.Controls.Add(this.guna2TextBox2);
+            this.groupBox1.Controls.Add(this.guna2TextBox3);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.DISTRIBUTOR);
+            this.groupBox1.Controls.Add(this.guna2TextBox4);
+            this.groupBox1.Controls.Add(this.btnCancel);
+            this.groupBox1.Controls.Add(this.guna2Button2);
+            this.groupBox1.Controls.Add(this.S_AWAL);
+            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.label15);
+            this.groupBox1.Controls.Add(this.label19);
+            this.groupBox1.Controls.Add(this.HARGAJUAL1);
+            this.groupBox1.Controls.Add(this.MODAL);
+            this.groupBox1.Location = new System.Drawing.Point(16, 594);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(1355, 178);
+            this.groupBox1.TabIndex = 42;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Input Data";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(903, 140);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(41, 18);
+            this.label3.TabIndex = 32;
+            this.label3.Text = "Laba";
+            // 
+            // guna2TextBox1
+            // 
+            this.guna2TextBox1.BorderRadius = 12;
+            this.guna2TextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.guna2TextBox1.DefaultText = "0";
+            this.guna2TextBox1.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.guna2TextBox1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.guna2TextBox1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.guna2TextBox1.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.guna2TextBox1.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2TextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2TextBox1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2TextBox1.Location = new System.Drawing.Point(999, 129);
+            this.guna2TextBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.guna2TextBox1.Name = "guna2TextBox1";
+            this.guna2TextBox1.PasswordChar = '\0';
+            this.guna2TextBox1.PlaceholderText = "";
+            this.guna2TextBox1.SelectedText = "";
+            this.guna2TextBox1.Size = new System.Drawing.Size(203, 36);
+            this.guna2TextBox1.TabIndex = 31;
+            // 
+            // B_KELUAR
+            // 
+            this.B_KELUAR.BackColor = System.Drawing.Color.Transparent;
+            this.B_KELUAR.BorderRadius = 12;
+            this.B_KELUAR.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.B_KELUAR.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.B_KELUAR.Location = new System.Drawing.Point(1247, 76);
+            this.B_KELUAR.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.B_KELUAR.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.B_KELUAR.Name = "B_KELUAR";
+            this.B_KELUAR.Size = new System.Drawing.Size(100, 36);
+            this.B_KELUAR.TabIndex = 29;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(1147, 86);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(52, 18);
+            this.label14.TabIndex = 30;
+            this.label14.Text = "Keluar";
+            // 
+            // B_MASUK
+            // 
+            this.B_MASUK.BackColor = System.Drawing.Color.Transparent;
+            this.B_MASUK.BorderRadius = 12;
+            this.B_MASUK.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.B_MASUK.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.B_MASUK.Location = new System.Drawing.Point(1247, 23);
+            this.B_MASUK.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.B_MASUK.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.B_MASUK.Name = "B_MASUK";
+            this.B_MASUK.Size = new System.Drawing.Size(100, 36);
+            this.B_MASUK.TabIndex = 27;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(1147, 33);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(52, 18);
+            this.label12.TabIndex = 28;
+            this.label12.Text = "Masuk";
+            // 
+            // S_AKHIR
+            // 
+            this.S_AKHIR.BackColor = System.Drawing.Color.Transparent;
+            this.S_AKHIR.BorderRadius = 12;
+            this.S_AKHIR.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.S_AKHIR.Enabled = false;
+            this.S_AKHIR.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.S_AKHIR.Location = new System.Drawing.Point(999, 76);
+            this.S_AKHIR.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.S_AKHIR.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.S_AKHIR.Name = "S_AKHIR";
+            this.S_AKHIR.Size = new System.Drawing.Size(100, 36);
+            this.S_AKHIR.TabIndex = 25;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(903, 86);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(78, 18);
+            this.label10.TabIndex = 26;
+            this.label10.Text = "Stok Akhir";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(597, 137);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(85, 18);
+            this.label4.TabIndex = 24;
+            this.label4.Text = "Pendapatan";
+            // 
+            // PENDAPATAN
+            // 
+            this.PENDAPATAN.BorderRadius = 12;
+            this.PENDAPATAN.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.PENDAPATAN.DefaultText = "";
+            this.PENDAPATAN.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.PENDAPATAN.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.PENDAPATAN.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.PENDAPATAN.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.PENDAPATAN.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.PENDAPATAN.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.PENDAPATAN.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.PENDAPATAN.Location = new System.Drawing.Point(712, 130);
+            this.PENDAPATAN.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.PENDAPATAN.Name = "PENDAPATAN";
+            this.PENDAPATAN.PasswordChar = '\0';
+            this.PENDAPATAN.PlaceholderText = "";
+            this.PENDAPATAN.SelectedText = "";
+            this.PENDAPATAN.Size = new System.Drawing.Size(151, 36);
+            this.PENDAPATAN.TabIndex = 23;
+            // 
+            // PERCENTASE
+            // 
+            this.PERCENTASE.BorderRadius = 12;
+            this.PERCENTASE.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.PERCENTASE.DefaultText = "";
+            this.PERCENTASE.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.PERCENTASE.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.PERCENTASE.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.PERCENTASE.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.PERCENTASE.Enabled = false;
+            this.PERCENTASE.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.PERCENTASE.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.PERCENTASE.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.PERCENTASE.Location = new System.Drawing.Point(601, 75);
+            this.PERCENTASE.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.PERCENTASE.Name = "PERCENTASE";
+            this.PERCENTASE.PasswordChar = '\0';
+            this.PERCENTASE.PlaceholderText = "";
+            this.PERCENTASE.SelectedText = "";
+            this.PERCENTASE.Size = new System.Drawing.Size(117, 37);
+            this.PERCENTASE.TabIndex = 19;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(309, 137);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(45, 18);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "Harta";
+            // 
+            // Harta
+            // 
+            this.Harta.BorderRadius = 12;
+            this.Harta.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.Harta.DefaultText = "";
+            this.Harta.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.Harta.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.Harta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.Harta.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.Harta.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.Harta.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.Harta.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.Harta.Location = new System.Drawing.Point(420, 129);
+            this.Harta.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Harta.Name = "Harta";
+            this.Harta.PasswordChar = '\0';
+            this.Harta.PlaceholderText = "";
+            this.Harta.SelectedText = "";
+            this.Harta.Size = new System.Drawing.Size(151, 36);
+            this.Harta.TabIndex = 17;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(597, 31);
+            this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(67, 18);
+            this.label24.TabIndex = 16;
+            this.label24.Text = "Mark-Up";
+            // 
+            // guna2TextBox2
+            // 
+            this.guna2TextBox2.BorderRadius = 12;
+            this.guna2TextBox2.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.guna2TextBox2.DefaultText = "";
+            this.guna2TextBox2.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.guna2TextBox2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.guna2TextBox2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.guna2TextBox2.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.guna2TextBox2.Enabled = false;
+            this.guna2TextBox2.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2TextBox2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2TextBox2.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2TextBox2.Location = new System.Drawing.Point(712, 23);
+            this.guna2TextBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.guna2TextBox2.Name = "guna2TextBox2";
+            this.guna2TextBox2.PasswordChar = '\0';
+            this.guna2TextBox2.PlaceholderText = "";
+            this.guna2TextBox2.SelectedText = "";
+            this.guna2TextBox2.Size = new System.Drawing.Size(151, 37);
+            this.guna2TextBox2.TabIndex = 15;
+            // 
+            // guna2TextBox3
+            // 
+            this.guna2TextBox3.BorderRadius = 12;
+            this.guna2TextBox3.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.guna2TextBox3.DefaultText = "";
+            this.guna2TextBox3.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.guna2TextBox3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.guna2TextBox3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.guna2TextBox3.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.guna2TextBox3.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2TextBox3.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2TextBox3.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2TextBox3.Location = new System.Drawing.Point(131, 23);
+            this.guna2TextBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.guna2TextBox3.Name = "guna2TextBox3";
+            this.guna2TextBox3.PasswordChar = '\0';
+            this.guna2TextBox3.PlaceholderText = "";
+            this.guna2TextBox3.SelectedText = "";
+            this.guna2TextBox3.Size = new System.Drawing.Size(152, 37);
+            this.guna2TextBox3.TabIndex = 14;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(23, 140);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(55, 18);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Suplier";
+            // 
+            // DISTRIBUTOR
+            // 
+            this.DISTRIBUTOR.BorderRadius = 12;
+            this.DISTRIBUTOR.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.DISTRIBUTOR.DefaultText = "";
+            this.DISTRIBUTOR.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.DISTRIBUTOR.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.DISTRIBUTOR.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.DISTRIBUTOR.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.DISTRIBUTOR.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.DISTRIBUTOR.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.DISTRIBUTOR.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.DISTRIBUTOR.Location = new System.Drawing.Point(129, 130);
+            this.DISTRIBUTOR.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.DISTRIBUTOR.Name = "DISTRIBUTOR";
+            this.DISTRIBUTOR.PasswordChar = '\0';
+            this.DISTRIBUTOR.PlaceholderText = "";
+            this.DISTRIBUTOR.SelectedText = "";
+            this.DISTRIBUTOR.Size = new System.Drawing.Size(152, 36);
+            this.DISTRIBUTOR.TabIndex = 12;
+            // 
+            // guna2TextBox4
+            // 
+            this.guna2TextBox4.BorderRadius = 12;
+            this.guna2TextBox4.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.guna2TextBox4.DefaultText = "";
+            this.guna2TextBox4.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.guna2TextBox4.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.guna2TextBox4.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.guna2TextBox4.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.guna2TextBox4.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2TextBox4.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2TextBox4.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2TextBox4.Location = new System.Drawing.Point(129, 75);
+            this.guna2TextBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.guna2TextBox4.Name = "guna2TextBox4";
+            this.guna2TextBox4.PasswordChar = '\0';
+            this.guna2TextBox4.PlaceholderText = "";
+            this.guna2TextBox4.SelectedText = "";
+            this.guna2TextBox4.Size = new System.Drawing.Size(152, 37);
+            this.guna2TextBox4.TabIndex = 11;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.BorderRadius = 12;
+            this.btnCancel.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnCancel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnCancel.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnCancel.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnCancel.FillColor = System.Drawing.Color.Maroon;
+            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnCancel.ForeColor = System.Drawing.Color.White;
+            this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
+            this.btnCancel.ImageAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.btnCancel.Location = new System.Drawing.Point(1289, 128);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(53, 37);
+            this.btnCancel.TabIndex = 5;
+            // 
+            // guna2Button2
+            // 
+            this.guna2Button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2Button2.BorderRadius = 12;
+            this.guna2Button2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(56)))));
+            this.guna2Button2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button2.ForeColor = System.Drawing.Color.White;
+            this.guna2Button2.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button2.Image")));
+            this.guna2Button2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.guna2Button2.Location = new System.Drawing.Point(1231, 128);
+            this.guna2Button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.guna2Button2.Name = "guna2Button2";
+            this.guna2Button2.Size = new System.Drawing.Size(53, 37);
+            this.guna2Button2.TabIndex = 5;
+            this.guna2Button2.Click += new System.EventHandler(this.guna2Button2_Click);
+            // 
+            // S_AWAL
+            // 
+            this.S_AWAL.BackColor = System.Drawing.Color.Transparent;
+            this.S_AWAL.BorderRadius = 12;
+            this.S_AWAL.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.S_AWAL.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.S_AWAL.Location = new System.Drawing.Point(999, 23);
+            this.S_AWAL.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.S_AWAL.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.S_AWAL.Name = "S_AWAL";
+            this.S_AWAL.Size = new System.Drawing.Size(100, 36);
+            this.S_AWAL.TabIndex = 3;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(704, -17);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(80, 18);
+            this.label13.TabIndex = 5;
+            this.label13.Text = "Harga Jual";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(727, 85);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(18, 18);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "%";
+            this.label1.Visible = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(309, 85);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(80, 18);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Harga Jual";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(309, 31);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(78, 18);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "Harga Beli";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(903, 33);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(76, 18);
+            this.label11.TabIndex = 3;
+            this.label11.Text = "Stok Awal";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(23, 81);
+            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(100, 18);
+            this.label15.TabIndex = 2;
+            this.label15.Text = "Nama Barang";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(23, 28);
+            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(92, 18);
+            this.label19.TabIndex = 1;
+            this.label19.Text = "kode Barang";
+            // 
+            // HARGAJUAL1
+            // 
+            this.HARGAJUAL1.BorderRadius = 12;
+            this.HARGAJUAL1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.HARGAJUAL1.DefaultText = "0";
+            this.HARGAJUAL1.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.HARGAJUAL1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.HARGAJUAL1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.HARGAJUAL1.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.HARGAJUAL1.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.HARGAJUAL1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.HARGAJUAL1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.HARGAJUAL1.Location = new System.Drawing.Point(420, 75);
+            this.HARGAJUAL1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.HARGAJUAL1.Name = "HARGAJUAL1";
+            this.HARGAJUAL1.PasswordChar = '\0';
+            this.HARGAJUAL1.PlaceholderText = "";
+            this.HARGAJUAL1.SelectedText = "";
+            this.HARGAJUAL1.Size = new System.Drawing.Size(148, 36);
+            this.HARGAJUAL1.TabIndex = 0;
+            // 
+            // MODAL
+            // 
+            this.MODAL.BorderRadius = 12;
+            this.MODAL.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.MODAL.DefaultText = "0";
+            this.MODAL.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.MODAL.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.MODAL.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.MODAL.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.MODAL.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.MODAL.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.MODAL.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.MODAL.Location = new System.Drawing.Point(417, 23);
+            this.MODAL.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MODAL.Name = "MODAL";
+            this.MODAL.PasswordChar = '\0';
+            this.MODAL.PlaceholderText = "";
+            this.MODAL.SelectedText = "";
+            this.MODAL.Size = new System.Drawing.Size(151, 36);
+            this.MODAL.TabIndex = 0;
+            // 
+            // label16
+            // 
+            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(1117, 141);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(76, 18);
+            this.label16.TabIndex = 43;
+            this.label16.Text = "Bayar : Rp";
+            // 
+            // txtBayar
+            // 
+            this.txtBayar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBayar.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(56)))));
+            this.txtBayar.BorderRadius = 15;
+            this.txtBayar.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtBayar.DefaultText = "";
+            this.txtBayar.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtBayar.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtBayar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtBayar.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtBayar.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtBayar.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtBayar.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtBayar.IconRightSize = new System.Drawing.Size(25, 25);
+            this.txtBayar.Location = new System.Drawing.Point(1199, 129);
+            this.txtBayar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtBayar.Name = "txtBayar";
+            this.txtBayar.PasswordChar = '\0';
+            this.txtBayar.PlaceholderText = "";
+            this.txtBayar.SelectedText = "";
+            this.txtBayar.Size = new System.Drawing.Size(173, 38);
+            this.txtBayar.TabIndex = 44;
+            // 
             // FormBarangMasuk
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1040, 640);
+            this.ClientSize = new System.Drawing.Size(1387, 788);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.txtBayar);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.namaTextBox);
@@ -892,6 +954,7 @@ namespace tes
             this.Controls.Add(this.lbl_NOFAKTUR);
             this.Controls.Add(this.label9);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormBarangMasuk";
             this.Text = "FormBarangMasuk";
             this.Load += new System.EventHandler(this.FormBarangMasuk_Load);
@@ -899,10 +962,10 @@ namespace tes
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.B_KELUAR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.B_MASUK)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.S_AKHIR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.S_AWAL)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.B_MASUK)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.B_KELUAR)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -959,5 +1022,7 @@ namespace tes
         private System.Windows.Forms.Label label14;
         private Guna.UI2.WinForms.Guna2NumericUpDown B_MASUK;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label16;
+        private Guna.UI2.WinForms.Guna2TextBox txtBayar;
     }
 }

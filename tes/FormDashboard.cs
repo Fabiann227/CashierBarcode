@@ -67,7 +67,7 @@ namespace tes
 
             string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};";
             MySqlConnection connection = new MySqlConnection(connectionString);
-            string query = "SELECT SUM(subtotal) as Penjualan from transaction WHERE DATE(tgl) = @tgl";
+            string query = "SELECT SUM(subtotal) as Penjualan, SUM(laba) as laba, SUM(retur) as retur from transaction WHERE DATE(tgl) = @tgl";
             using (MySqlCommand cmd = new MySqlCommand(query, connection))
             {
                 string tgl = DatePicker.Value.ToString("yyyy-MM-dd");
@@ -79,23 +79,31 @@ namespace tes
                     if (reader.HasRows)
                     {
                         decimal p = 0;
+                        decimal d = 0;
+                        int i = 0;  
                         if (reader.Read())
                         {
-                            if (!reader.IsDBNull(0))
+                            if (!reader.IsDBNull(0) || !reader.IsDBNull(1) || !reader.IsDBNull(2))
                             {
                                 p = reader.GetDecimal(0);
                                 lbl_PENJUALAN.Text = p.ToString("C", new CultureInfo("ID-id"));
+                                d = reader.GetDecimal(1);
+                                lbl_LABA.Text = d.ToString("C", new CultureInfo("ID-id"));
+                                i = reader.GetInt32(2);
+                                lbl_RETUR.Text = i.ToString();
                             }
                             else
                             {
                                 lbl_PENJUALAN.Text = "Rp0,00";
+                                lbl_LABA.Text = "Rp0,00";
+                                lbl_RETUR.Text = "0";
                             }
                         }
                         
                     }
                     else
                     {
-
+                        MessageBox.Show("Data Tidak Ditemukan");
                     }
                 }
             }
