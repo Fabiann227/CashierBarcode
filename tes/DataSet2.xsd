@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet2" targetNamespace="http://tempuri.org/DataSet2.xsd" xmlns:mstns="http://tempuri.org/DataSet2.xsd" xmlns="http://tempuri.org/DataSet2.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet2" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_UserDSName="DataSet2" msprop:Generator_DataSetName="DataSet2">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dataSet2" msprop:Generator_RowEvHandlerName="dataSet2RowChangeEventHandler" msprop:Generator_RowDeletedName="dataSet2RowDeleted" msprop:Generator_RowDeletingName="dataSet2RowDeleting" msprop:Generator_RowEvArgName="dataSet2RowChangeEvent" msprop:Generator_TablePropName="dataSet2" msprop:Generator_RowChangedName="dataSet2RowChanged" msprop:Generator_RowChangingName="dataSet2RowChanging" msprop:Generator_TableClassName="dataSet2DataTable" msprop:Generator_RowClassName="dataSet2Row" msprop:Generator_TableVarName="tabledataSet2" msprop:Generator_UserTableName="dataSet2">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nama_brg" msprop:Generator_ColumnPropNameInRow="nama_brg" msprop:Generator_ColumnPropNameInTable="nama_brgColumn" msprop:Generator_ColumnVarNameInTable="columnnama_brg" msprop:Generator_UserColumnName="nama_brg" type="xs:string" minOccurs="0" />
+              <xs:element name="jual" msprop:Generator_ColumnPropNameInRow="jual" msprop:Generator_ColumnPropNameInTable="jualColumn" msprop:Generator_ColumnVarNameInTable="columnjual" msprop:Generator_UserColumnName="jual" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

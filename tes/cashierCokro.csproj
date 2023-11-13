@@ -186,6 +186,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DataSet2.cs">
+      <DependentUpon>DataSet2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet2.xsd</DependentUpon>
+    </Compile>
     <Compile Include="FormAddKas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -215,6 +223,12 @@
     </Compile>
     <Compile Include="FormCetakFakturTunai.Designer.cs">
       <DependentUpon>FormCetakFakturTunai.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormCetakLabel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCetakLabel.Designer.cs">
+      <DependentUpon>FormCetakLabel.cs</DependentUpon>
     </Compile>
     <Compile Include="FormDashboard.cs">
       <SubType>Form</SubType>
@@ -339,6 +353,9 @@
     <EmbeddedResource Include="FormCetakFakturTunai.resx">
       <DependentUpon>FormCetakFakturTunai.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormCetakLabel.resx">
+      <DependentUpon>FormCetakLabel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormDashboard.resx">
       <DependentUpon>FormDashboard.cs</DependentUpon>
     </EmbeddedResource>
@@ -406,6 +423,7 @@
     <EmbeddedResource Include="Report2.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report3.rdlc" />
     <EmbeddedResource Include="ReportStruk.rdlc" />
     <None Include="DataSet1.xsc">
       <DependentUpon>DataSet1.xsd</DependentUpon>
@@ -417,6 +435,17 @@
     </None>
     <None Include="DataSet1.xss">
       <DependentUpon>DataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet2.xsc">
+      <DependentUpon>DataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet2.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet2.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSet2.xss">
+      <DependentUpon>DataSet2.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\DataSet1.DataSourceProdukDataTable.datasource" />

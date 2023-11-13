@@ -72,7 +72,8 @@ namespace tes
 
         private void guna2Button2_Click(object sender, EventArgs e)
         {
-            
+            FormCetakLabel frmCetak = new FormCetakLabel();
+            frmCetak.ShowDialog();
         }
         private void FrmMaster_Load(object sender, EventArgs e)
         {
